@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routie ✦ Cute Academic Routine Designer</title>
+    <!-- Favicon using the SVG data URI -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 300'%3E%3Cpath fill='%23ff9ebb' d='M400 150c0-40 30-70 70-70s70 30 70 70-30 70-70 70-70-30-70-70z'/%3E%3C/svg%3E">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            pink: '#ffd1dc',
+                            cream: '#fdfbf7',
+                            green: '#d4edda',
+                            lavender: '#e8dff5',
+                            yellow: '#fef9d7',
+                            peach: '#ffe5d9',
+                            mint: '#d8f3dc',
+                            rose: '#ffccd5'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+                        serif: ['ui-serif', 'Georgia', 'serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
+                        hand: ['"Comic Sans MS"', '"Chalkboard SE"', 'cursive', 'sans-serif'],
+                        rounded: ['"Quicksand"', '"Nunito"', 'sans-serif'],
+                        instrumental: ['"Instrument Serif"', '"Playfair Display"', 'Georgia', 'serif'],
+                        quicksand: ['"Quicksand"', 'sans-serif'],
+                        nunito: ['"Nunito"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts including Instrumental Serif & Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for cute icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2canvas for exporting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        .font-quicksand { font-family: 'Quicksand', sans-serif; }
+        .font-nunito { font-family: 'Nunito', sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-instrumental { font-family: 'Instrument Serif', Georgia, serif; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fdfbf7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f3c6df;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e8a5cb;
+        }
+
+        /* Washi tape effect */
+        .washi-tape-top {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
+            width: 100px;
+            height: 24px;
+            background-color: rgba(255, 209, 220, 0.7);
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.5) 10px, rgba(255,255,255,0.5) 20px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        /* Paper texture */
+        .paper-texture {
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#e5e0d8 0.75px, transparent 0.75px);
+            background-size: 15px 15px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#fcf8f5] text-slate-700 font-quicksand h-full flex flex-col antialiased selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-pink-100 sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between shadow-xs">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="app.switchTab('home')">
+            <!-- Responsive SVG Logo: 110-140px mobile, 140-180px desktop, preserves aspect ratio -->
+            <svg class="w-[110px] sm:w-[130px] md:w-[160px] h-auto block object-contain hover:scale-105 transition-transform" viewBox="0 0 1000 320" xmlns="http://www.w3.org/2000/svg">
+                <!-- Embedded SVG Content representing Routie Branding -->
+                <g>
+                    <!-- Notebook & Flowers Illustration Left Side -->
+                    <g transform="translate(10, 10)">
+                        <!-- Green Washi Tape Background -->
+                        <path d="M 20,20 L 110,10 L 115,40 L 25,50 Z" fill="#bce1c4" opacity="0.9"/>
+                        <!-- Pink Patterned Tape -->
+                        <path d="M 40,5 L 130,0 L 132,25 L 42,30 Z" fill="#ffccd5" opacity="0.9"/>
+                        <!-- Notebook Cover Stack -->
+                        <rect x="25" y="35" width="115" height="150" rx="12" fill="#e2d4c7" stroke="#bfae9e" stroke-width="3"/>
+                        <rect x="35" y="25" width="115" height="150" rx="12" fill="#fff9f0" stroke="#d6c6b8" stroke-width="3"/>
+                        <!-- Binding Rings -->
+                        <circle cx="65" cy="25" r="7" fill="none" stroke="#8c7865" stroke-width="4"/>
+                        <circle cx="90" cy="25" r="7" fill="none" stroke="#8c7865" stroke-width="4"/>
+                        <circle cx="115" cy="25" r="7" fill="none" stroke="#8c7865" stroke-width="4"/>
+                        <!-- Checklist lines inside notebook -->
+                        <rect x="48" y="55" width="14" height="14" rx="3" fill="none" stroke="#e07a9b" stroke-width="3"/>
+                        <path d="M 51,62 L 54,65 L 60,58" fill="none" stroke="#e07a9b" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="72" y1="62" x2="125" y2="62" stroke="#ffccd5" stroke-width="5" stroke-linecap="round"/>
+                        
+                        <rect x="48" y="85" width="14" height="14" rx="3" fill="none" stroke="#e07a9b" stroke-width="3"/>
+                        <path d="M 51,92 L 54,95 L 60,88" fill="none" stroke="#e07a9b" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="72" y1="92" x2="125" y2="92" stroke="#bce1c4" stroke-width="5" stroke-linecap="round"/>
+
+                        <rect x="48" y="115" width="14" height="14" rx="3" fill="none" stroke="#e07a9b" stroke-width="3"/>
+                        <line x1="72" y1="122" x2="125" y2="122" stroke="#ffccd5" stroke-width="5" stroke-linecap="round"/>
+                        
+                        <!-- Little heart on notebook -->
+                        <path d="M 120,145 C 115,138 105,138 102,144 C 99,138 89,138 84,145 C 84,153 102,162 102,162 C 102,162 120,153 120,145 Z" fill="#ff9ebb"/>
+                        
+                        <!-- Mini tag attached -->
+                        <path d="M 120,50 L 150,40 L 160,70 L 130,80 Z" fill="#fff" stroke="#d6c6b8" stroke-width="2"/>
+                        <circle cx="128" cy="54" r="3" fill="#8c7865"/>
+                        <path d="M 140,55 Q 145,50 150,55 Q 145,60 140,55 Z" fill="#ff9ebb"/>
+                        
+                        <!-- Tulips & Bow at bottom left -->
+                        <path d="M 40,230 Q 60,180 80,165" fill="none" stroke="#68805f" stroke-width="6" stroke-linecap="round"/>
+                        <path d="M 55,200 Q 40,195 30,210 Q 50,215 55,200 Z" fill="#68805f"/>
+                        <path d="M 65,185 Q 85,180 95,195 Q 75,205 65,185 Z" fill="#68805f"/>
+                        <!-- Bow -->
+                        <path d="M 45,225 C 20,210 10,240 35,250 C 15,260 25,285 45,260 C 55,270 70,250 60,235 Z" fill="#ff9ebb"/>
+                        <circle cx="48" cy="242" r="7" fill="#e07a9b"/>
+                        <!-- Tulip flower head -->
+                        <path d="M 72,130 C 65,110 80,95 90,105 C 100,95 115,110 108,130 C 105,145 75,145 72,130 Z" fill="#ffafbe"/>
+                    </g>
+
+                    <!-- Main Typography: "routie" -->
+                    <g transform="translate(320, 40)">
+                        <!-- Outer white sticker shadow border -->
+                        <text x="55" y="165" font-family="'Quicksand', 'Nunito', sans-serif" font-weight="900" font-size="140" fill="#fff" stroke="#fff" stroke-width="24" stroke-linejoin="round">routie</text>
+                        <!-- Inner soft brown outline -->
+                        <text x="55" y="165" font-family="'Quicksand', 'Nunito', sans-serif" font-weight="900" font-size="140" fill="none" stroke="#785e52" stroke-width="12" stroke-linejoin="round">routie</text>
+                        <!-- Main pink fill text -->
+                        <text x="55" y="165" font-family="'Quicksand', 'Nunito', sans-serif" font-weight="900" font-size="140" fill="#ff9ebb">routie</text>
+                        
+                        <!-- Heart cutout inside 'o' -->
+                        <path d="M 235,115 C 230,108 220,108 217,114 C 214,108 204,108 199,115 C 199,122 217,132 217,132 C 217,132 235,122 235,115 Z" fill="#fff"/>
+
+                        <!-- Big Heart floating top right of text -->
+                        <path d="M 420,70 C 405,50 380,50 373,65 C 366,50 341,50 326,70 C 326,92 373,115 373,115 C 373,115 420,92 420,70 Z" fill="#ff7f9f" stroke="#785e52" stroke-width="5"/>
+
+                        <!-- Banner underneath -->
+                        <g transform="translate(10, 180)">
+                            <path d="M 20,20 C 100,10 300,10 380,20 C 390,35 380,50 370,55 C 290,65 110,65 30,55 C 20,45 10,30 20,20 Z" fill="#ffccd5" stroke="#785e52" stroke-width="4"/>
+                            <text x="65" y="44" font-family="'Quicksand', sans-serif" font-weight="700" font-size="18" fill="#523d33" letter-spacing="1.5">make your routine pretty. ♡ ✦</text>
+                        </g>
+                    </g>
+
+                    <!-- Sparkles & Stars right side -->
+                    <g transform="translate(800, 40)">
+                        <!-- Star top right -->
+                        <path d="M 50,20 C 50,45 75,50 75,50 C 75,50 50,55 50,80 C 50,55 25,50 25,50 C 25,50 50,45 50,20 Z" fill="#ffe2b3" stroke="#785e52" stroke-width="4"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <nav class="hidden md:flex items-center space-x-1 bg-pink-50/50 p-1.5 rounded-full border border-pink-100/60">
+            <button onclick="app.switchTab('home')" id="nav-home" class="nav-btn px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-pink-600">Home</button>
+            <button onclick="app.switchTab('create')" id="nav-create" class="nav-btn px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-pink-600">Create Routine</button>
+            <button onclick="app.switchTab('my-routines')" id="nav-my-routines" class="nav-btn px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-pink-600">My Routines</button>
+            <button onclick="app.switchTab('settings')" id="nav-settings" class="nav-btn px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-pink-600">Settings</button>
+        </nav>
+
+        <div class="flex items-center space-x-3">
+            <button onclick="app.switchTab('create')" class="hidden sm:inline-flex items-center space-x-2 bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white px-5 py-2 rounded-full font-bold text-sm shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                <span>Create Routine</span>
+                <span>✦</span>
+            </button>
+            <!-- Mobile Menu Toggle -->
+            <button onclick="app.toggleMobileMenu()" class="md:hidden p-2 rounded-xl text-slate-600 hover:bg-pink-50">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-pink-100 p-4 space-y-2 shadow-lg absolute top-16 left-0 right-0 z-40">
+        <button onclick="app.switchTab('home'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-50 text-slate-600">Home</button>
+        <button onclick="app.switchTab('create'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-50 text-slate-600">Create Routine</button>
+        <button onclick="app.switchTab('my-routines'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-50 text-slate-600">My Routines</button>
+        <button onclick="app.switchTab('settings'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-50 text-slate-600">Settings</button>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col overflow-hidden relative">
+
+        <!-- ==================== HOME TAB ==================== -->
+        <section id="tab-home" class="tab-content flex-1 overflow-y-auto p-6 md:p-12 space-y-16">
+            <!-- Hero Banner -->
+            <div class="max-w-4xl mx-auto text-center space-y-6 pt-8 pb-4">
+                <div class="inline-flex items-center space-x-2 bg-pink-100/80 border border-pink-200 text-pink-700 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase shadow-2xs animate-float">
+                    <span>✨ Canva for Study & Class Routines</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-800 leading-tight">
+                    Create routines that actually look cute. <span class="text-pink-500">✦</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-medium">
+                    Plan your classes, courses, study sessions and exams — then turn them into a routine you'll actually want to look at.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <button onclick="app.switchTab('create')" class="w-full sm:w-auto bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white px-8 py-3.5 rounded-2xl font-bold text-base shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                        <span>Create a Routine</span>
+                        <span>✦</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Example Cards Showcase -->
+            <div class="max-w-6xl mx-auto space-y-6">
+                <div class="text-center">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-pink-500">Inspiration</h2>
+                    <p class="text-2xl font-bold text-slate-800">Designed with soft stationery aesthetics</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-3xl border border-pink-100 shadow-sm hover:shadow-md transition-all space-y-4">
+                        <div class="h-44 bg-pink-50 rounded-2xl p-4 flex flex-col justify-between border border-pink-200/50 relative overflow-hidden">
+                            <div class="absolute -top-6 -right-6 w-20 h-20 bg-pink-200 rounded-full opacity-50"></div>
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-pink-600 bg-white/80 px-2 py-0.5 rounded-md">Coquette Style</span>
+                                <h4 class="font-bold text-slate-800 text-sm mt-2">HSC Chemistry Routine</h4>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
+                                    <span class="font-bold">Mon 17 Aug</span>
+                                    <span class="text-pink-600">Chemical Bonding</span>
+                                </div>
+                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
+                                    <span class="font-bold">Tue 18 Aug</span>
+                                    <span class="text-pink-600">Organic Chemistry</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Coquette Chemistry Plan</h3>
+                        <p class="text-xs text-slate-500">Soft pink, ribbons, elegant headers, and perfect typography for your study weeks.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm hover:shadow-md transition-all space-y-4">
+                        <div class="h-44 bg-emerald-50/70 rounded-2xl p-4 flex flex-col justify-between border border-emerald-200/50 relative overflow-hidden">
+                            <div class="absolute -top-6 -right-6 w-20 h-20 bg-emerald-200 rounded-full opacity-40"></div>
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-white/80 px-2 py-0.5 rounded-md">Botanical Style</span>
+                                <h4 class="font-bold text-slate-800 text-sm mt-2">Botanical Study Schedule</h4>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
+                                    <span class="font-bold">Wed 19 Aug</span>
+                                    <span class="text-emerald-700">Calculus & Vectors</span>
+                                </div>
+                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
+                                    <span class="font-bold">Thu 20 Aug</span>
+                                    <span class="text-emerald-700">Physics Mechanics</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Matcha Academic Routine</h3>
+                        <p class="text-xs text-slate-500">Cream and sage green tones with botanical stationery vibes for focused study sessions.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm hover:shadow-md transition-all space-y-4">
+                        <div class="h-44 bg-amber-50/70 rounded-2xl p-4 flex flex-col justify-between border border-amber-200/50 relative overflow-hidden">
+                            <div class="absolute -top-6 -right-6 w-20 h-20 bg-amber-200 rounded-full opacity-40"></div>
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-white/80 px-2 py-0.5 rounded-md">Notebook Style</span>
+                                <h4 class="font-bold text-slate-800 text-sm mt-2">Exam Revision Week</h4>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
+                                    <span class="font-bold">Fri 21 Aug</span>
+                                    <span class="text-amber-700">Biology Past Papers</span>
+                                </div>
+                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
+                                    <span class="font-bold">Sat 22 Aug</span>
+                                    <span class="text-amber-700">Mock Exam #1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-slate-800">Notebook Exam Routine</h3>
+                        <p class="text-xs text-slate-500">Grid paper background with cute stationery markings and clean academic structures.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3-Step Explanation -->
+            <div class="max-w-5xl mx-auto bg-gradient-to-b from-pink-50/50 to-amber-50/30 rounded-3xl p-8 md:p-12 border border-pink-100/80">
+                <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-pink-500">Simple Workflow</h2>
+                    <h3 class="text-2xl font-bold text-slate-800">How to create your routine in seconds</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-2xl shadow-xs border border-pink-100/60 space-y-3">
+                        <span class="text-2xl font-black text-pink-400">01</span>
+                        <h4 class="font-bold text-slate-800 text-lg">Enter Details</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Add your routine title, date range, and course schedule. Days are calculated automatically!</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-xs border border-pink-100/60 space-y-3">
+                        <span class="text-2xl font-black text-pink-400">02</span>
+                        <h4 class="font-bold text-slate-800 text-lg">Customize & Font</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Choose your favorite font (including Instrumental Serif) and fine-tune your routine entries.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-xs border border-pink-100/60 space-y-3">
+                        <span class="text-2xl font-black text-pink-400">03</span>
+                        <h4 class="font-bold text-slate-800 text-lg">Export & Print</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Download your finished routine instantly as a pristine PNG image ready for printing or sharing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CREATE ROUTINE TAB ==================== -->
+        <section id="tab-create" class="tab-content hidden flex-1 flex flex-col md:flex-row overflow-hidden bg-slate-50">
+            
+            <!-- LEFT: Information & Form Editor -->
+            <div class="w-full md:w-[380px] bg-white border-r border-slate-200 flex flex-col h-full overflow-y-auto">
+                <div class="p-4 border-b border-slate-100 bg-pink-50/30 flex items-center justify-between">
+                    <h2 class="font-bold text-slate-800 flex items-center space-x-2">
+                        <i class="fa-solid fa-pen-nib text-pink-500"></i>
+                        <span>Routine Form</span>
+                    </h2>
+                    <span class="text-[10px] bg-pink-100 text-pink-700 font-bold px-2 py-0.5 rounded-full">Auto-saving</span>
+                </div>
+
+                <div class="p-4 space-y-6 flex-1">
+                    <!-- Basic Info Section -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Basic Information</h3>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Routine Title</label>
+                            <input type="text" id="input-title" oninput="app.updateBasicInfo()" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50" placeholder="e.g. CHEMISTRY ROUTINE">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Subtitle</label>
+                            <input type="text" id="input-subtitle" oninput="app.updateBasicInfo()" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50" placeholder="e.g. HSC 2026 PREPARATION">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Date Range</label>
+                            <input type="text" id="input-daterange" oninput="app.updateBasicInfo()" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50" placeholder="e.g. 17 August – 23 August 2026">
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <!-- Routine Entries Section -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Routine Entries</h3>
+                            <button onclick="app.addEntry()" class="text-xs bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold px-2.5 py-1 rounded-lg transition-all flex items-center space-x-1">
+                                <i class="fa-solid fa-plus text-[10px]"></i>
+                               <span>Add Entry</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Entries Container -->
+                        <div id="entries-form-list" class="space-y-3">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+
+                        <button onclick="app.addEntry()" class="w-full py-2.5 border-2 border-dashed border-pink-200 hover:border-pink-300 text-pink-600 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 bg-pink-50/30">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>+ Add another entry</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER: Live Preview Area -->
+            <div class="flex-1 flex flex-col h-full overflow-hidden bg-[#f3efe6] relative">
+                <!-- Preview Toolbar -->
+                <div class="bg-white/90 backdrop-blur-md px-6 py-3 border-b border-slate-200/60 flex items-center justify-between z-20">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Live Preview</span>
+                        <div class="h-4 w-px bg-slate-200"></div>
+                        <span class="text-xs font-bold text-pink-600 bg-pink-50 px-2.5 py-1 rounded-md border border-pink-100">Polished Routine Design</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="app.exportImage()" class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center space-x-1.5">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Download PNG</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas Scrollable Area -->
+                <div class="flex-1 overflow-auto p-6 md:p-10 flex items-center justify-center">
+                    <!-- Exportable Routine Container -->
+                    <div id="routine-canvas" class="w-full max-w-2xl bg-white rounded-3xl shadow-xl relative transition-all duration-300 overflow-hidden paper-texture p-8 md:p-12">
+                        <!-- Populated by Engine -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Customization & Font Controls -->
+            <div class="w-full md:w-[320px] bg-white border-l border-slate-200 flex flex-col h-full overflow-y-auto">
+                <div class="p-4 border-b border-slate-100 bg-pink-50/30 flex items-center justify-between">
+                    <h2 class="font-bold text-slate-800 flex items-center space-x-2">
+                        <i class="fa-solid fa-font text-pink-500"></i>
+                        <span>Style & Font Options</span>
+                    </h2>
+                </div>
+
+                <div class="p-4 space-y-6 flex-1">
+                    <!-- Font Family Selector -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Heading Font</h3>
+                        <select id="select-font-family" onchange="app.updateFontFamily(this.value)" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50 font-semibold">
+                            <option value="font-instrumental">Instrumental Serif (Elegant Academic)</option>
+                            <option value="font-playfair">Playfair Display (Classic Serif)</option>
+                            <option value="font-quicksand">Quicksand (Rounded Modern)</option>
+                            <option value="font-nunito">Nunito (Clean Sans-Serif)</option>
+                        </select>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <!-- Layout Style Selector -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Layout Style</h3>
+                        <select id="select-layout-style" onchange="app.updateLayoutStyle(this.value)" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50 font-semibold">
+                            <option value="table">Table Style</option>
+                            <option value="timeline">Timeline Style</option>
+                            <option value="daily">Daily Card Style</option>
+                            <option value="checklist">Checklist Style</option>
+                        </select>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <!-- Decorations Toggle -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Decorations</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center justify-between text-xs font-semibold text-slate-600">
+                                <span>Show Washi Tape</span>
+                                <input type="checkbox" id="toggle-washetape" checked onchange="app.toggleDecoration('washiTape', this.checked)" class="rounded text-pink-500 focus:ring-pink-400">
+                            </label>
+                            <label class="flex items-center justify-between text-xs font-semibold text-slate-600">
+                                <span>Show Cute Doodles/Icons</span>
+                                <input type="checkbox" id="toggle-doodles" checked onchange="app.toggleDecoration('doodles', this.checked)" class="rounded text-pink-500 focus:ring-pink-400">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ==================== MY ROUTINES TAB ==================== -->
+        <section id="tab-my-routines" class="tab-content hidden flex-1 overflow-y-auto p-6 md:p-12 space-y-8">
+            <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-slate-800">My Saved Routines ✦</h2>
+                    <p class="text-slate-500 text-sm">All your created routines are automatically saved locally.</p>
+                </div>
+                <button onclick="app.createNewRoutine()" class="bg-pink-500 hover:bg-pink-600 text-white px-5 py-2.5 rounded-2xl font-bold text-sm shadow-sm transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>New Routine</span>
+                </button>
+            </div>
+
+            <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="my-routines-grid">
+                <!-- Populated via JS -->
+            </div>
+        </section>
+
+        <!-- ==================== SETTINGS TAB ==================== -->
+        <section id="tab-settings" class="tab-content hidden flex-1 overflow-y-auto p-6 md:p-12 space-y-8">
+            <div class="max-w-2xl mx-auto bg-white rounded-3xl p-8 border border-pink-100 shadow-sm space-y-6">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-800">Settings & Preferences ✦</h2>
+                    <p class="text-xs text-slate-400 mt-1">Manage application storage and preferences.</p>
+                </div>
+
+                <hr class="border-slate-100">
+
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold text-slate-700">Storage Management</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Your routines are stored in your browser's LocalStorage. You can clear all saved data or export a backup.</p>
+                    <div class="flex space-x-3 pt-2">
+                        <button onclick="app.clearAllData()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-4 py-2 rounded-xl text-xs font-bold transition-all border border-rose-200">
+                            Clear All Saved Routines
+                        </button>
+                    </div>
+                </div>
+
+                <hr class="border-slate-100">
+
+                <div class="space-y-2">
+                    <h3 class="text-sm font-bold text-slate-700">About Routie</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Routie is a Canva-style aesthetic routine designer built for students, teachers, and planners. Version 1.1.0 ✦</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900/90 backdrop-blur-md text-white px-5 py-3 rounded-2xl text-xs font-bold shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center space-x-2">
+        <span class="text-pink-400">✦</span>
+        <span id="toast-message">Notification message here</span>
+    </div>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        // State Management
+        class RoutineApp {
+            constructor() {
+                this.currentTab = 'home';
+                this.routines = this.loadRoutines();
+                this.currentRoutineId = null;
+                this.activeLayoutStyle = 'table';
+                this.activeFontFamily = 'font-instrumental';
+                this.showWashiTape = true;
+                this.showDoodles = true;
+
+                // Initialize demo data if no routines exist
+                if (this.routines.length === 0) {
+                    const demoRoutine = {
+                        id: 'demo-' + Date.now(),
+                        title: 'CHEMISTRY ROUTINE',
+                        subtitle: 'HSC 2026 PREPARATION',
+                        dateRange: '17 August – 23 August 2026',
+                        layoutStyle: 'table',
+                        fontFamily: 'font-instrumental',
+                        entries: [
+                            { id: 1, date: '2026-08-17', time: '5:30–7:30 PM', subject: 'Chemistry', topic: 'Chemical Bonding', teacher: 'Dr. Smith', notes: 'Chapter 2', type: 'Class' },
+                            { id: 2, date: '2026-08-18', time: '8:00–10:00 PM', subject: 'Chemistry', topic: 'Organic Chemistry', teacher: 'Dr. Smith', notes: 'Reaction mechanisms', type: 'Study' },
+                            { id: 3, date: '2026-08-20', time: '5:30–7:30 PM', subject: 'Chemistry', topic: 'Periodicity', teacher: 'Prof. Davis', notes: 'Periodic trends', type: 'Revision' },
+                            { id: 4, date: '2026-08-22', time: '7:00–9:00 PM', subject: 'Chemistry', topic: 'MCQ Practice', teacher: 'Self', notes: 'Past papers', type: 'Exam' }
+                        ]
+                    };
+                    this.routines.push(demoRoutine);
+                    this.currentRoutineId = demoRoutine.id;
+                    this.saveRoutines();
+                } else {
+                    this.currentRoutineId = this.routines[0].id;
+                }
+
+                this.init();
+            }
+
+            init() {
+                this.loadCurrentRoutineIntoForm();
+                this.renderRoutineCanvas();
+                this.renderMyRoutines();
+            }
+
+            loadRoutines() {
+                const data = localStorage.getItem('routine_maker_routines');
+                return data ? JSON.parse(data) : [];
+            }
+
+            saveRoutines() {
+                localStorage.setItem('routine_maker_routines', JSON.stringify(this.routines));
+                this.renderMyRoutines();
+            }
+
+            getCurrentRoutine() {
+                return this.routines.find(r => r.id === this.currentRoutineId) || this.routines[0];
+            }
+
+            switchTab(tabId) {
+                this.currentTab = tabId;
+                document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+                document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('text-pink-600', 'bg-pink-100/50'));
+                const activeNav = document.getElementById(`nav-${tabId}`);
+                if (activeNav) activeNav.classList.add('text-pink-600', 'bg-pink-100/50');
+
+                if (tabId === 'create') {
+                    this.loadCurrentRoutineIntoForm();
+                    this.renderRoutineCanvas();
+                }
+            }
+
+            toggleMobileMenu() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            }
+
+            showToast(msg) {
+                const toast = document.getElementById('toast');
+                document.getElementById('toast-message').textContent = msg;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 3000);
+            }
+
+            // Smart Date Handling
+            calculateDay(dateString) {
+                if (!dateString) return '';
+                const d = new Date(dateString);
+                if (isNaN(d.getTime())) return '';
+                return d.toLocaleDateString('en-US', { weekday: 'long' });
+            }
+
+            // Form Management
+            loadCurrentRoutineIntoForm() {
+                const r = this.getCurrentRoutine();
+                document.getElementById('input-title').value = r.title || '';
+                document.getElementById('input-subtitle').value = r.subtitle || '';
+                document.getElementById('input-daterange').value = r.dateRange || '';
+                this.activeLayoutStyle = r.layoutStyle || 'table';
+                document.getElementById('select-layout-style').value = this.activeLayoutStyle;
+
+                this.activeFontFamily = r.fontFamily || 'font-instrumental';
+                document.getElementById('select-font-family').value = this.activeFontFamily;
+
+                this.renderEntriesForm();
+            }
+
+            updateBasicInfo() {
+                const r = this.getCurrentRoutine();
+                r.title = document.getElementById('input-title').value;
+                r.subtitle = document.getElementById('input-subtitle').value;
+                r.dateRange = document.getElementById('input-daterange').value;
+                this.saveRoutines();
+                this.renderRoutineCanvas();
+            }
+
+            renderEntriesForm() {
+                const r = this.getCurrentRoutine();
+                const container = document.getElementById('entries-form-list');
+                container.innerHTML = '';
+
+                r.entries.forEach((entry, idx) => {
+                    const day = entry.date ? this.calculateDay(entry.date) : '';
+                    const div = document.createElement('div');
+                    div.className = 'bg-slate-50 border border-slate-200 p-3 rounded-2xl space-y-2.5 relative group';
+                    div.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-extrabold uppercase text-pink-600 bg-pink-100 px-2 py-0.5 rounded">Entry #${idx + 1}</span>
+                            <div class="flex items-center space-x-1">
+                                <button onclick="app.duplicateEntry(${entry.id})" title="Duplicate" class="text-slate-400 hover:text-slate-600 p-1"><i class="fa-solid fa-copy text-xs"></i></button>
+                                <button onclick="app.deleteEntry(${entry.id})" title="Delete" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-trash text-xs"></i></button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Date</label>
+                                <input type="date" value="${entry.date || ''}" onchange="app.updateEntryField(${entry.id}, 'date', this.value)" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Day (Auto)</label>
+                                <input type="text" disabled value="${day}" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-100 text-slate-500 font-medium">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Time</label>
+                                <input type="text" value="${entry.time || ''}" oninput="app.updateEntryField(${entry.id}, 'time', this.value)" placeholder="e.g. 5:30–7:30 PM" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Subject</label>
+                                <input type="text" value="${entry.subject || ''}" oninput="app.updateEntryField(${entry.id}, 'subject', this.value)" placeholder="e.g. Chemistry" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Topic</label>
+                            <input type="text" value="${entry.topic || ''}" oninput="app.updateEntryField(${entry.id}, 'topic', this.value)" placeholder="e.g. Chemical Bonding" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            addEntry() {
+                const r = this.getCurrentRoutine();
+                const newId = r.entries.length > 0 ? Math.max(...r.entries.map(e => e.id)) + 1 : 1;
+                r.entries.push({
+                    id: newId,
+                    date: new Date().toISOString().split('T')[0],
+                    time: '9:00–11:00 AM',
+                    subject: 'New Subject',
+                    topic: 'Topic Name',
+                    type: 'Study'
+                });
+                this.saveRoutines();
+                this.renderEntriesForm();
+                this.renderRoutineCanvas();
+                this.showToast('Entry added successfully ♡');
+            }
+
+            deleteEntry(id) {
+                const r = this.getCurrentRoutine();
+                if (r.entries.length <= 1) {
+                    this.showToast('Oops! Keep at least one entry. ♡');
+                    return;
+                }
+                r.entries = r.entries.filter(e => e.id !== id);
+                this.saveRoutines();
+                this.renderEntriesForm();
+                this.renderRoutineCanvas();
+                this.showToast('Entry deleted.');
+            }
+
+            duplicateEntry(id) {
+                const r = this.getCurrentRoutine();
+                const target = r.entries.find(e => e.id === id);
+                if (target) {
+                    const newId = Math.max(...r.entries.map(e => e.id)) + 1;
+                    const clone = { ...target, id: newId };
+                    r.entries.push(clone);
+                    this.saveRoutines();
+                    this.renderEntriesForm();
+                    this.renderRoutineCanvas();
+                    this.showToast('Entry duplicated ✦');
+                }
+            }
+
+            updateEntryField(id, field, val) {
+                const r = this.getCurrentRoutine();
+                const target = r.entries.find(e => e.id === id);
+                if (target) {
+                    target[field] = val;
+                    this.saveRoutines();
+                    this.renderEntriesForm();
+                    this.renderRoutineCanvas();
+                }
+            }
+
+            updateLayoutStyle(style) {
+                this.activeLayoutStyle = style;
+                const r = this.getCurrentRoutine();
+                r.layoutStyle = style;
+                this.saveRoutines();
+                this.renderRoutineCanvas();
+            }
+
+            updateFontFamily(font) {
+                this.activeFontFamily = font;
+                const r = this.getCurrentRoutine();
+                r.fontFamily = font;
+                this.saveRoutines();
+                this.renderRoutineCanvas();
+                this.showToast('Font updated ✦');
+            }
+
+            toggleDecoration(type, val) {
+                if (type === 'washiTape') this.showWashiTape = val;
+                if (type === 'doodles') this.showDoodles = val;
+                this.renderRoutineCanvas();
+            }
+
+            // Routine Canvas Rendering Engine
+            renderRoutineCanvas() {
+                const canvas = document.getElementById('routine-canvas');
+                const r = this.getCurrentRoutine();
+                const fontClass = this.activeFontFamily || 'font-instrumental';
+
+                let decorationHTML = '';
+                if (this.showWashiTape) {
+                    decorationHTML += `<div class="washi-tape-top"></div>`;
+                }
+                if (this.showDoodles) {
+                    decorationHTML += `<div class="absolute top-4 right-4 text-pink-300 text-xl animate-float">🎀</div>`;
+                    decorationHTML += `<div class="absolute bottom-4 left-4 text-pink-300 text-lg">♡</div>`;
+                }
+
+                let contentHTML = '';
+                if (this.activeLayoutStyle === 'table') {
+                    contentHTML = `
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b-2 border-slate-200 text-xs font-extrabold uppercase tracking-wider text-slate-500">
+                                        <th class="py-3 px-3">Date / Day</th>
+                                        <th class="py-3 px-3">Time</th>
+                                        <th class="py-3 px-3">Subject</th>
+                                        <th class="py-3 px-3">Topic</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 text-xs">
+                                    ${r.entries.map(e => `
+                                        <tr class="hover:bg-slate-50/50 transition-colors">
+                                            <td class="py-3.5 px-3 font-bold text-slate-800">
+                                                <div>${e.date || ''}</div>
+                                                <div class="text-[10px] text-pink-600 font-semibold">${this.calculateDay(e.date)}</div>
+                                            </td>
+                                            <td class="py-3.5 px-3 text-slate-600 font-medium">${e.time || ''}</td>
+                                            <td class="py-3.5 px-3 font-bold text-slate-700">${e.subject || ''}</td>
+                                            <td class="py-3.5 px-3 text-slate-600">${e.topic || ''}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                } else if (this.activeLayoutStyle === 'timeline') {
+                    contentHTML = `
+                        <div class="space-y-4 relative before:absolute before:inset-0 before:left-3 before:w-0.5 before:bg-pink-200">
+                            ${r.entries.map(e => `
+                                <div class="relative flex items-start space-x-4 pl-8">
+                                    <div class="absolute left-1.5 top-1.5 w-3.5 h-3.5 rounded-full bg-pink-400 border-2 border-white shadow-sm"></div>
+                                    <div class="bg-slate-50/80 border border-slate-200/60 p-4 rounded-2xl flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                                        <div>
+                                            <span class="text-[10px] font-extrabold text-pink-600 uppercase tracking-wider">${e.date || ''} (${this.calculateDay(e.date)})</span>
+                                            <h4 class="font-bold text-slate-800 text-sm mt-0.5">${e.subject}: ${e.topic}</h4>
+                                        </div>
+                                        <span class="text-xs font-semibold bg-white px-3 py-1 rounded-full border border-slate-200 text-slate-600">${e.time}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (this.activeLayoutStyle === 'daily') {
+                    contentHTML = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            ${r.entries.map(e => `
+                                <div class="bg-slate-50/90 border border-slate-200/80 p-4 rounded-2xl space-y-2 shadow-2xs">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-[10px] font-extrabold bg-pink-100 text-pink-700 px-2.5 py-0.5 rounded-full uppercase">${this.calculateDay(e.date) || 'Day'}</span>
+                                        <span class="text-[11px] font-bold text-slate-500">${e.date || ''}</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800 text-sm">${e.subject} — ${e.topic}</h4>
+                                        <p class="text-xs text-pink-600 font-semibold mt-0.5"><i class="fa-regular fa-clock mr-1"></i>${e.time}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (this.activeLayoutStyle === 'checklist') {
+                    contentHTML = `
+                        <div class="space-y-3">
+                            ${r.entries.map(e => `
+                                <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-5 h-5 rounded-md border-2 border-pink-400 bg-white"></div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800 text-xs sm:text-sm">${e.subject} — ${e.topic}</h4>
+                                            <p class="text-[10px] text-slate-500 font-medium">${e.date} (${this.calculateDay(e.date)}) • ${e.time}</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] bg-pink-50 text-pink-600 font-bold px-2 py-1 rounded-lg border border-pink-100">Study</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                canvas.innerHTML = `
+                    ${decorationHTML}
+                    <div class="space-y-6">
+                        <div class="text-center space-y-1.5 pb-4 border-b border-slate-100">
+                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-pink-500 bg-pink-50 px-3 py-1 rounded-full border border-pink-100">${r.subtitle || 'STUDY ROUTINE'}</span>
+                            <h2 class="text-3xl md:text-4xl font-black text-slate-800 tracking-tight ${fontClass}">${r.title || 'ROUTINE'}</h2>
+                            <p class="text-xs font-semibold text-slate-400">${r.dateRange || ''}</p>
+                        </div>
+                        ${contentHTML}
+                    </div>
+                `;
+            }
+
+            renderMyRoutines() {
+                const grid = document.getElementById('my-routines-grid');
+                grid.innerHTML = '';
+
+                if (this.routines.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center py-12 space-y-3">
+                            <div class="text-4xl">✦</div>
+                            <h3 class="font-bold text-slate-700 text-lg">No routines yet</h3>
+                            <p class="text-xs text-slate-400">Your beautiful schedule is waiting to be made.</p>
+                            <button onclick="app.createNewRoutine()" class="mt-2 bg-pink-500 text-white px-5 py-2 rounded-xl text-xs font-bold">Create your first routine</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                this.routines.forEach(r => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-6 rounded-3xl border border-pink-100 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between';
+                    card.innerHTML = `
+                        <div class="space-y-2">
+                            <span class="text-[10px] font-bold text-pink-600 bg-pink-50 px-2 py-0.5 rounded">${r.dateRange || 'Weekly Plan'}</span>
+                            <h3 class="font-bold text-slate-800 text-base">${r.title || 'Untitled Routine'}</h3>
+                            <p class="text-xs text-slate-400">${r.entries.length} scheduled entries</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                            <button onclick="app.openRoutine('${r.id}')" class="text-xs font-bold text-pink-600 hover:underline">Open & Edit</button>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="app.duplicateRoutine('${r.id}')" title="Duplicate" class="text-slate-400 hover:text-slate-600 p-1.5"><i class="fa-solid fa-copy text-xs"></i></button>
+                                <button onclick="app.deleteRoutine('${r.id}')" title="Delete" class="text-slate-400 hover:text-rose-500 p-1.5"><i class="fa-solid fa-trash text-xs"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            createNewRoutine() {
+                const newR = {
+                    id: 'routine-' + Date.now(),
+                    title: 'MY STUDY ROUTINE',
+                    subtitle: 'WEEKLY SCHEDULE',
+                    dateRange: 'August 2026',
+                    layoutStyle: 'table',
+                    fontFamily: 'font-instrumental',
+                    entries: [
+                        { id: 1, date: new Date().toISOString().split('T')[0], time: '10:00–12:00 PM', subject: 'Mathematics', topic: 'Calculus', type: 'Study' }
+                    ]
+                };
+                this.routines.push(newR);
+                this.currentRoutineId = newR.id;
+                this.saveRoutines();
+                this.switchTab('create');
+                this.showToast('New routine created ✦');
+            }
+
+            openRoutine(id) {
+                this.currentRoutineId = id;
+                this.switchTab('create');
+            }
+
+            duplicateRoutine(id) {
+                const target = this.routines.find(r => r.id === id);
+                if (target) {
+                    const clone = JSON.parse(JSON.stringify(target));
+                    clone.id = 'routine-' + Date.now();
+                    clone.title = target.title + ' (Copy)';
+                    this.routines.push(clone);
+                    this.saveRoutines();
+                    this.showToast('Routine duplicated successfully ✦');
+                }
+            }
+
+            deleteRoutine(id) {
+                if (this.routines.length <= 1) {
+                    this.showToast('Oops! You need at least one routine. ♡');
+                    return;
+                }
+                this.routines = this.routines.filter(r => r.id !== id);
+                if (this.currentRoutineId === id) {
+                    this.currentRoutineId = this.routines[0].id;
+                }
+                this.saveRoutines();
+                this.showToast('Routine deleted.');
+            }
+
+            clearAllData() {
+                if (confirm('Are you sure you want to clear all saved routines?')) {
+                    localStorage.removeItem('routine_maker_routines');
+                    this.routines = [];
+                    this.createNewRoutine();
+                    this.showToast('All data cleared.');
+                }
+            }
+
+            exportImage() {
+                this.showToast('Generating PNG image... ✦');
+                const canvasEl = document.getElementById('routine-canvas');
+                html2canvas(canvasEl, { scale: 2, backgroundColor: '#fdfbf7' }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `${this.getCurrentRoutine().title || 'routine'}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    this.showToast('Routine downloaded successfully! 🎀');
+                });
+            }
+        }
+
+        // Initialize App on DOM Load
+        let app;
+        window.addEventListener('DOMContentLoaded', () => {
+            app = new RoutineApp();
+        });
+    </script>
+</body>
+</html>
