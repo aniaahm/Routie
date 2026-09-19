@@ -3,468 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Routie ✦ Cute Academic Routine Designer</title>
-    <!-- Favicon using the SVG data URI -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 300'%3E%3Cpath fill='%23ff9ebb' d='M400 150c0-40 30-70 70-70s70 30 70 70-30 70-70 70-70-30-70-70z'/%3E%3C/svg%3E">
+    <title>Routie ✦ Cute Personal Stationery & Routine Designer</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎀%3C/text%3E%3C/svg%3E">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        pastel: {
-                            pink: '#ffd1dc',
-                            cream: '#fdfbf7',
-                            green: '#d4edda',
-                            lavender: '#e8dff5',
-                            yellow: '#fef9d7',
-                            peach: '#ffe5d9',
-                            mint: '#d8f3dc',
-                            rose: '#ffccd5'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['ui-sans-serif', 'system-ui', 'sans-serif'],
-                        serif: ['ui-serif', 'Georgia', 'serif'],
-                        mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
-                        hand: ['"Comic Sans MS"', '"Chalkboard SE"', 'cursive', 'sans-serif'],
-                        rounded: ['"Quicksand"', '"Nunito"', 'sans-serif'],
-                        instrumental: ['"Instrument Serif"', '"Playfair Display"', 'Georgia', 'serif'],
-                        quicksand: ['"Quicksand"', 'sans-serif'],
-                        nunito: ['"Nunito"', 'sans-serif']
+                        cream: { 50: '#fffefb', 100: '#fdfbf7', 200: '#f7f2e8', 300: '#ede4d3' },
+                        dustyPink: { 100: '#fbe8ec', 300: '#f4c2cc', 500: '#e58c9e', 700: '#b85468' },
+                        matcha: { 100: '#eaf2ea', 300: '#c5dcc5', 500: '#8fad8f', 700: '#537053' },
+                        butter: { 100: '#fef9e7', 300: '#fde9b2', 500: '#f4cb68', 700: '#b0821d' },
+                        powderBlue: { 100: '#ebf4f8', 300: '#c3e0ec', 500: '#7faec5', 700: '#47748b' },
+                        lavender: { 100: '#f3eff8', 300: '#d8cae8', 500: '#a387c2', 700: '#6d4f8e' },
+                        charcoal: '#332e2b',
+                        warmBrown: '#5c4d44'
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts including Instrumental Serif & Playfair Display -->
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- FontAwesome for cute icons -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&family=Covered+By+Your+Grace&family=Eagle+Lake&family=Instrument+Serif:ital@0;1&family=Moms+Signature&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome & html2canvas -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- html2canvas for exporting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <style>
-        .font-quicksand { font-family: 'Quicksand', sans-serif; }
-        .font-nunito { font-family: 'Nunito', sans-serif; }
-        .font-playfair { font-family: 'Playfair Display', serif; }
-        .font-instrumental { font-family: 'Instrument Serif', Georgia, serif; }
+        /* Typography Utilities */
+        .font-sans-ui { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-instrument { font-family: 'Instrument Serif', serif; }
+        .font-eagle { font-family: 'Eagle Lake', serif; }
+        .font-beth { font-family: 'Beth Ellen', cursive; }
+        .font-grace { font-family: 'Covered By Your Grace', cursive; }
+        .font-moms { font-family: 'Moms Signature', cursive; }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #fdfbf7;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #f3c6df;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #e8a5cb;
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #fdfbf7; }
+        ::-webkit-scrollbar-thumb { background: #f4c2cc; border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e58c9e; }
+
+        /* Paper & Washi Textures */
+        .paper-texture {
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#e5e0d8 0.65px, transparent 0.65px);
+            background-size: 14px 14px;
         }
 
-        /* Washi tape effect */
-        .washi-tape-top {
+        .graph-paper-texture {
+            background-color: #fcf9f2;
+            background-image: linear-gradient(#e1ded5 1px, transparent 1px), linear-gradient(90deg, #e1ded5 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .washi-tape {
+            position: relative;
+        }
+        .washi-tape::before {
+            content: '';
             position: absolute;
             top: -10px;
             left: 50%;
             transform: translateX(-50%) rotate(-1deg);
-            width: 100px;
-            height: 24px;
-            background-color: rgba(255, 209, 220, 0.7);
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.5) 10px, rgba(255,255,255,0.5) 20px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            width: 90px;
+            height: 22px;
+            background-color: rgba(244, 194, 204, 0.65);
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.4) 8px, rgba(255,255,255,0.4) 16px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
             z-index: 10;
         }
 
-        /* Paper texture */
-        .paper-texture {
-            background-color: #fdfbf7;
-            background-image: radial-gradient(#e5e0d8 0.75px, transparent 0.75px);
-            background-size: 15px 15px;
-        }
+        /* Aesthetic Themes for Preview */
+        .theme-ribbon { background-color: #fffdfa; color: #332e2b; --accent: #e58c9e; --border: #f4c2cc; --card-bg: #fbe8ec; }
+        .theme-matcha { background-color: #f9faf8; color: #2d3b2d; --accent: #8fad8f; --border: #c5dcc5; --card-bg: #eaf2ea; }
+        .theme-strawberry { background-color: #fff9fa; color: #3d2427; --accent: #e25b73; --border: #f7b0be; --card-bg: #fde8ec; }
+        .theme-butter { background-color: #fffdf5; color: #42361c; --accent: #dca028; --border: #fde9b2; --card-bg: #fef9e7; }
+        .theme-blue { background-color: #f7fafc; color: #233745; --accent: #689cb5; --border: #c3e0ec; --card-bg: #ebf4f8; }
+        .theme-flower { background-color: #fcf8fa; color: #3b2838; --accent: #b07bb1; --border: #e2c2e3; --card-bg: #f5e9f5; }
+        .theme-study { background-color: #fcf9f2; color: #3a322b; --accent: #928373; --border: #d8cebe; --card-bg: #f2ebe0; }
 
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-6px) rotate(2deg); }
-        }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
+        .theme-bg { background-color: var(--card-bg); }
+        .theme-border { border-color: var(--border); }
+        .theme-accent-text { color: var(--accent); }
+        .theme-accent-bg { background-color: var(--accent); }
+
+        .scrapbook-rotate-1 { transform: rotate(-1.2deg); }
+        .scrapbook-rotate-2 { transform: rotate(1.5deg); }
+        .scrapbook-rotate-3 { transform: rotate(-0.8deg); }
     </style>
 </head>
-<body class="bg-[#fcf8f5] text-slate-700 font-quicksand h-full flex flex-col antialiased selection:bg-pink-200 selection:text-pink-900">
+<body class="bg-cream-100 text-charcoal font-sans-ui h-full flex flex-col antialiased selection:bg-dustyPink-300 selection:text-charcoal">
 
     <!-- Top Navigation Bar -->
-    <header class="bg-white/80 backdrop-blur-md border-b border-pink-100 sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between shadow-xs">
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="app.switchTab('home')">
-            <!-- Responsive SVG Logo: 110-140px mobile, 140-180px desktop, preserves aspect ratio -->
-            <svg class="w-[110px] sm:w-[130px] md:w-[160px] h-auto block object-contain hover:scale-105 transition-transform" viewBox="0 0 1000 320" xmlns="http://www.w3.org/2000/svg">
-                <!-- Embedded SVG Content representing Routie Branding -->
-                <g>
-                    <!-- Notebook & Flowers Illustration Left Side -->
-                    <g transform="translate(10, 10)">
-                        <!-- Green Washi Tape Background -->
-                        <path d="M 20,20 L 110,10 L 115,40 L 25,50 Z" fill="#bce1c4" opacity="0.9"/>
-                        <!-- Pink Patterned Tape -->
-                        <path d="M 40,5 L 130,0 L 132,25 L 42,30 Z" fill="#ffccd5" opacity="0.9"/>
-                        <!-- Notebook Cover Stack -->
-                        <rect x="25" y="35" width="115" height="150" rx="12" fill="#e2d4c7" stroke="#bfae9e" stroke-width="3"/>
-                        <rect x="35" y="25" width="115" height="150" rx="12" fill="#fff9f0" stroke="#d6c6b8" stroke-width="3"/>
-                        <!-- Binding Rings -->
-                        <circle cx="65" cy="25" r="7" fill="none" stroke="#8c7865" stroke-width="4"/>
-                        <circle cx="90" cy="25" r="7" fill="none" stroke="#8c7865" stroke-width="4"/>
-                        <circle cx="115" cy="25" r="7" fill="none" stroke="#8c7865" stroke-width="4"/>
-                        <!-- Checklist lines inside notebook -->
-                        <rect x="48" y="55" width="14" height="14" rx="3" fill="none" stroke="#e07a9b" stroke-width="3"/>
-                        <path d="M 51,62 L 54,65 L 60,58" fill="none" stroke="#e07a9b" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="72" y1="62" x2="125" y2="62" stroke="#ffccd5" stroke-width="5" stroke-linecap="round"/>
-                        
-                        <rect x="48" y="85" width="14" height="14" rx="3" fill="none" stroke="#e07a9b" stroke-width="3"/>
-                        <path d="M 51,92 L 54,95 L 60,88" fill="none" stroke="#e07a9b" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="72" y1="92" x2="125" y2="92" stroke="#bce1c4" stroke-width="5" stroke-linecap="round"/>
-
-                        <rect x="48" y="115" width="14" height="14" rx="3" fill="none" stroke="#e07a9b" stroke-width="3"/>
-                        <line x1="72" y1="122" x2="125" y2="122" stroke="#ffccd5" stroke-width="5" stroke-linecap="round"/>
-                        
-                        <!-- Little heart on notebook -->
-                        <path d="M 120,145 C 115,138 105,138 102,144 C 99,138 89,138 84,145 C 84,153 102,162 102,162 C 102,162 120,153 120,145 Z" fill="#ff9ebb"/>
-                        
-                        <!-- Mini tag attached -->
-                        <path d="M 120,50 L 150,40 L 160,70 L 130,80 Z" fill="#fff" stroke="#d6c6b8" stroke-width="2"/>
-                        <circle cx="128" cy="54" r="3" fill="#8c7865"/>
-                        <path d="M 140,55 Q 145,50 150,55 Q 145,60 140,55 Z" fill="#ff9ebb"/>
-                        
-                        <!-- Tulips & Bow at bottom left -->
-                        <path d="M 40,230 Q 60,180 80,165" fill="none" stroke="#68805f" stroke-width="6" stroke-linecap="round"/>
-                        <path d="M 55,200 Q 40,195 30,210 Q 50,215 55,200 Z" fill="#68805f"/>
-                        <path d="M 65,185 Q 85,180 95,195 Q 75,205 65,185 Z" fill="#68805f"/>
-                        <!-- Bow -->
-                        <path d="M 45,225 C 20,210 10,240 35,250 C 15,260 25,285 45,260 C 55,270 70,250 60,235 Z" fill="#ff9ebb"/>
-                        <circle cx="48" cy="242" r="7" fill="#e07a9b"/>
-                        <!-- Tulip flower head -->
-                        <path d="M 72,130 C 65,110 80,95 90,105 C 100,95 115,110 108,130 C 105,145 75,145 72,130 Z" fill="#ffafbe"/>
-                    </g>
-
-                    <!-- Main Typography: "routie" -->
-                    <g transform="translate(320, 40)">
-                        <!-- Outer white sticker shadow border -->
-                        <text x="55" y="165" font-family="'Quicksand', 'Nunito', sans-serif" font-weight="900" font-size="140" fill="#fff" stroke="#fff" stroke-width="24" stroke-linejoin="round">routie</text>
-                        <!-- Inner soft brown outline -->
-                        <text x="55" y="165" font-family="'Quicksand', 'Nunito', sans-serif" font-weight="900" font-size="140" fill="none" stroke="#785e52" stroke-width="12" stroke-linejoin="round">routie</text>
-                        <!-- Main pink fill text -->
-                        <text x="55" y="165" font-family="'Quicksand', 'Nunito', sans-serif" font-weight="900" font-size="140" fill="#ff9ebb">routie</text>
-                        
-                        <!-- Heart cutout inside 'o' -->
-                        <path d="M 235,115 C 230,108 220,108 217,114 C 214,108 204,108 199,115 C 199,122 217,132 217,132 C 217,132 235,122 235,115 Z" fill="#fff"/>
-
-                        <!-- Big Heart floating top right of text -->
-                        <path d="M 420,70 C 405,50 380,50 373,65 C 366,50 341,50 326,70 C 326,92 373,115 373,115 C 373,115 420,92 420,70 Z" fill="#ff7f9f" stroke="#785e52" stroke-width="5"/>
-
-                        <!-- Banner underneath -->
-                        <g transform="translate(10, 180)">
-                            <path d="M 20,20 C 100,10 300,10 380,20 C 390,35 380,50 370,55 C 290,65 110,65 30,55 C 20,45 10,30 20,20 Z" fill="#ffccd5" stroke="#785e52" stroke-width="4"/>
-                            <text x="65" y="44" font-family="'Quicksand', sans-serif" font-weight="700" font-size="18" fill="#523d33" letter-spacing="1.5">make your routine pretty. ♡ ✦</text>
-                        </g>
-                    </g>
-
-                    <!-- Sparkles & Stars right side -->
-                    <g transform="translate(800, 40)">
-                        <!-- Star top right -->
-                        <path d="M 50,20 C 50,45 75,50 75,50 C 75,50 50,55 50,80 C 50,55 25,50 25,50 C 25,50 50,45 50,20 Z" fill="#ffe2b3" stroke="#785e52" stroke-width="4"/>
-                    </g>
-                </g>
-            </svg>
+    <header class="bg-cream-50/90 backdrop-blur-md border-b border-cream-300 sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-2 cursor-pointer" onclick="app.switchTab('home')">
+            <span class="text-xl">🎀</span>
+            <span class="font-instrument text-2xl font-bold tracking-tight text-charcoal">routie<span class="text-dustyPink-500">.</span></span>
+            <span class="text-xs text-dustyPink-700 bg-dustyPink-100 px-2 py-0.5 rounded-full font-medium ml-1">stationery studio</span>
         </div>
 
-        <nav class="hidden md:flex items-center space-x-1 bg-pink-50/50 p-1.5 rounded-full border border-pink-100/60">
-            <button onclick="app.switchTab('home')" id="nav-home" class="nav-btn px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-pink-600">Home</button>
-            <button onclick="app.switchTab('create')" id="nav-create" class="nav-btn px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-pink-600">Create Routine</button>
-            <button onclick="app.switchTab('my-routines')" id="nav-my-routines" class="nav-btn px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-pink-600">My Routines</button>
-            <button onclick="app.switchTab('settings')" id="nav-settings" class="nav-btn px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-pink-600">Settings</button>
+        <nav class="hidden md:flex items-center space-x-1 bg-cream-200/60 p-1 rounded-full border border-cream-300">
+            <button onclick="app.switchTab('home')" id="nav-home" class="nav-btn px-4 py-1.5 rounded-full text-xs font-semibold transition-all text-warmBrown hover:text-dustyPink-700">Home</button>
+            <button onclick="app.switchTab('create')" id="nav-create" class="nav-btn px-4 py-1.5 rounded-full text-xs font-semibold transition-all text-warmBrown hover:text-dustyPink-700">Create Routine</button>
+            <button onclick="app.switchTab('my-routines')" id="nav-my-routines" class="nav-btn px-4 py-1.5 rounded-full text-xs font-semibold transition-all text-warmBrown hover:text-dustyPink-700">My Routines</button>
+            <button onclick="app.switchTab('settings')" id="nav-settings" class="nav-btn px-4 py-1.5 rounded-full text-xs font-semibold transition-all text-warmBrown hover:text-dustyPink-700">Settings</button>
         </nav>
 
         <div class="flex items-center space-x-3">
-            <button onclick="app.switchTab('create')" class="hidden sm:inline-flex items-center space-x-2 bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white px-5 py-2 rounded-full font-bold text-sm shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0">
-                <span>Create Routine</span>
+            <button onclick="app.switchTab('create')" class="bg-dustyPink-500 hover:bg-dustyPink-700 text-white px-4 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm flex items-center space-x-1.5">
+                <span>Create a Routine</span>
                 <span>✦</span>
             </button>
-            <!-- Mobile Menu Toggle -->
-            <button onclick="app.toggleMobileMenu()" class="md:hidden p-2 rounded-xl text-slate-600 hover:bg-pink-50">
-                <i class="fa-solid fa-bars text-lg"></i>
+            <button onclick="app.toggleMobileMenu()" class="md:hidden p-2 text-warmBrown">
+                <i class="fa-solid fa-bars text-base"></i>
             </button>
         </div>
     </header>
 
     <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-pink-100 p-4 space-y-2 shadow-lg absolute top-16 left-0 right-0 z-40">
-        <button onclick="app.switchTab('home'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-50 text-slate-600">Home</button>
-        <button onclick="app.switchTab('create'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-50 text-slate-600">Create Routine</button>
-        <button onclick="app.switchTab('my-routines'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-50 text-slate-600">My Routines</button>
-        <button onclick="app.switchTab('settings'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-50 text-slate-600">Settings</button>
+    <div id="mobile-menu" class="hidden md:hidden bg-cream-50 border-b border-cream-300 p-4 space-y-2 shadow-sm absolute top-14 left-0 right-0 z-40">
+        <button onclick="app.switchTab('home'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-xs font-semibold text-warmBrown hover:bg-cream-200">Home</button>
+        <button onclick="app.switchTab('create'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-xs font-semibold text-warmBrown hover:bg-cream-200">Create Routine</button>
+        <button onclick="app.switchTab('my-routines'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-xs font-semibold text-warmBrown hover:bg-cream-200">My Routines</button>
+        <button onclick="app.switchTab('settings'); app.toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl text-xs font-semibold text-warmBrown hover:bg-cream-200">Settings</button>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- Main Content Container -->
     <main class="flex-1 flex flex-col overflow-hidden relative">
 
         <!-- ==================== HOME TAB ==================== -->
-        <section id="tab-home" class="tab-content flex-1 overflow-y-auto p-6 md:p-12 space-y-16">
-            <!-- Hero Banner -->
-            <div class="max-w-4xl mx-auto text-center space-y-6 pt-8 pb-4">
-                <div class="inline-flex items-center space-x-2 bg-pink-100/80 border border-pink-200 text-pink-700 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase shadow-2xs animate-float">
-                    <span>✨ Canva for Study & Class Routines</span>
+        <section id="tab-home" class="tab-content flex-1 overflow-y-auto p-6 md:p-12 space-y-12 max-w-5xl mx-auto w-full">
+            <div class="text-center space-y-4 pt-6">
+                <div class="inline-flex items-center space-x-2 bg-dustyPink-100 border border-dustyPink-300 text-dustyPink-700 px-3.5 py-1 rounded-full text-xs font-medium">
+                    <span>✦ tiny cute internet stationery shop</span>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-800 leading-tight">
-                    Create routines that actually look cute. <span class="text-pink-500">✦</span>
+                <h1 class="text-4xl md:text-6xl font-instrument italic font-normal text-charcoal leading-tight">
+                    make your routine pretty<span class="text-dustyPink-500 font-sans-ui not-italic">. ♡</span>
                 </h1>
-                <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-medium">
-                    Plan your classes, courses, study sessions and exams — then turn them into a routine you'll actually want to look at.
+                <p class="text-sm md:text-base text-warmBrown max-w-lg mx-auto font-normal leading-relaxed">
+                    Build a routine, choose your vibe, and make something you'll actually want to look at everyday.
                 </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                    <button onclick="app.switchTab('create')" class="w-full sm:w-auto bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white px-8 py-3.5 rounded-2xl font-bold text-base shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
-                        <span>Create a Routine</span>
-                        <span>✦</span>
+                <div class="pt-2">
+                    <button onclick="app.switchTab('create')" class="bg-charcoal hover:bg-dustyPink-700 text-cream-50 px-7 py-3 rounded-2xl text-xs font-semibold tracking-wide transition-all shadow-sm">
+                        Create a Routine ✦
                     </button>
                 </div>
             </div>
 
             <!-- Example Cards Showcase -->
-            <div class="max-w-6xl mx-auto space-y-6">
-                <div class="text-center">
-                    <h2 class="text-xs font-bold uppercase tracking-widest text-pink-500">Inspiration</h2>
-                    <p class="text-2xl font-bold text-slate-800">Designed with soft stationery aesthetics</p>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between border-b border-cream-300 pb-2">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-warmBrown">Stationery Collections</h2>
+                    <span class="text-xs text-dustyPink-700 font-beth">handcrafted layouts</span>
                 </div>
+                
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white p-6 rounded-3xl border border-pink-100 shadow-sm hover:shadow-md transition-all space-y-4">
-                        <div class="h-44 bg-pink-50 rounded-2xl p-4 flex flex-col justify-between border border-pink-200/50 relative overflow-hidden">
-                            <div class="absolute -top-6 -right-6 w-20 h-20 bg-pink-200 rounded-full opacity-50"></div>
-                            <div>
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-pink-600 bg-white/80 px-2 py-0.5 rounded-md">Coquette Style</span>
-                                <h4 class="font-bold text-slate-800 text-sm mt-2">HSC Chemistry Routine</h4>
-                            </div>
+                    <div class="bg-cream-50 p-5 rounded-2xl border border-cream-300 space-y-3 washi-tape">
+                        <div class="h-36 bg-dustyPink-100 rounded-xl p-3 border border-dustyPink-300 flex flex-col justify-between">
+                            <span class="text-[10px] font-bold text-dustyPink-700 uppercase">Ribbon Room</span>
                             <div class="space-y-1">
-                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
-                                    <span class="font-bold">Mon 17 Aug</span>
-                                    <span class="text-pink-600">Chemical Bonding</span>
+                                <div class="bg-white/80 p-1.5 rounded text-[10px] flex justify-between font-medium">
+                                    <span>Mon • 5:00 PM</span>
+                                    <span class="font-bold">Chemical Bonding</span>
                                 </div>
-                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
-                                    <span class="font-bold">Tue 18 Aug</span>
-                                    <span class="text-pink-600">Organic Chemistry</span>
+                                <div class="bg-white/80 p-1.5 rounded text-[10px] flex justify-between font-medium">
+                                    <span>Tue • 8:00 PM</span>
+                                    <span class="font-bold">Vectors Study</span>
                                 </div>
                             </div>
                         </div>
-                        <h3 class="font-bold text-slate-800">Coquette Chemistry Plan</h3>
-                        <p class="text-xs text-slate-500">Soft pink, ribbons, elegant headers, and perfect typography for your study weeks.</p>
+                        <h3 class="font-instrument text-lg text-charcoal">Coquette Chemistry</h3>
+                        <p class="text-xs text-warmBrown leading-relaxed">Dusty pinks, ribbons, bows, and elegant Instrument Serif headers.</p>
                     </div>
 
-                    <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm hover:shadow-md transition-all space-y-4">
-                        <div class="h-44 bg-emerald-50/70 rounded-2xl p-4 flex flex-col justify-between border border-emerald-200/50 relative overflow-hidden">
-                            <div class="absolute -top-6 -right-6 w-20 h-20 bg-emerald-200 rounded-full opacity-40"></div>
-                            <div>
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-white/80 px-2 py-0.5 rounded-md">Botanical Style</span>
-                                <h4 class="font-bold text-slate-800 text-sm mt-2">Botanical Study Schedule</h4>
-                            </div>
+                    <div class="bg-cream-50 p-5 rounded-2xl border border-cream-300 space-y-3">
+                        <div class="h-36 bg-matcha-100 rounded-xl p-3 border border-matcha-300 flex flex-col justify-between">
+                            <span class="text-[10px] font-bold text-matcha-700 uppercase">Matcha Memo</span>
                             <div class="space-y-1">
-                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
-                                    <span class="font-bold">Wed 19 Aug</span>
-                                    <span class="text-emerald-700">Calculus & Vectors</span>
+                                <div class="bg-white/80 p-1.5 rounded text-[10px] flex justify-between font-medium">
+                                    <span>Wed • 9:00 AM</span>
+                                    <span class="font-bold">Organic Chemistry</span>
                                 </div>
-                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
-                                    <span class="font-bold">Thu 20 Aug</span>
-                                    <span class="text-emerald-700">Physics Mechanics</span>
+                                <div class="bg-white/80 p-1.5 rounded text-[10px] flex justify-between font-medium">
+                                    <span>Thu • 2:00 PM</span>
+                                    <span class="font-bold">Calculus Lab</span>
                                 </div>
                             </div>
                         </div>
-                        <h3 class="font-bold text-slate-800">Matcha Academic Routine</h3>
-                        <p class="text-xs text-slate-500">Cream and sage green tones with botanical stationery vibes for focused study sessions.</p>
+                        <h3 class="font-instrument text-lg text-charcoal">Botanical Matcha</h3>
+                        <p class="text-xs text-warmBrown leading-relaxed">Soft sage greens, botanical notes, and clean planner spaces.</p>
                     </div>
 
-                    <div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm hover:shadow-md transition-all space-y-4">
-                        <div class="h-44 bg-amber-50/70 rounded-2xl p-4 flex flex-col justify-between border border-amber-200/50 relative overflow-hidden">
-                            <div class="absolute -top-6 -right-6 w-20 h-20 bg-amber-200 rounded-full opacity-40"></div>
-                            <div>
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-white/80 px-2 py-0.5 rounded-md">Notebook Style</span>
-                                <h4 class="font-bold text-slate-800 text-sm mt-2">Exam Revision Week</h4>
-                            </div>
+                    <div class="bg-cream-50 p-5 rounded-2xl border border-cream-300 space-y-3">
+                        <div class="h-36 bg-butter-100 rounded-xl p-3 border border-butter-300 flex flex-col justify-between">
+                            <span class="text-[10px] font-bold text-butter-700 uppercase">Butter Note</span>
                             <div class="space-y-1">
-                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
-                                    <span class="font-bold">Fri 21 Aug</span>
-                                    <span class="text-amber-700">Biology Past Papers</span>
+                                <div class="bg-white/80 p-1.5 rounded text-[10px] flex justify-between font-medium">
+                                    <span>Fri • 4:00 PM</span>
+                                    <span class="font-bold">Physics Review</span>
                                 </div>
-                                <div class="bg-white/90 p-1.5 rounded text-[11px] flex justify-between">
-                                    <span class="font-bold">Sat 22 Aug</span>
-                                    <span class="text-amber-700">Mock Exam #1</span>
+                                <div class="bg-white/80 p-1.5 rounded text-[10px] flex justify-between font-medium">
+                                    <span>Sat • 10:00 AM</span>
+                                    <span class="font-bold">Mock Exam #1</span>
                                 </div>
                             </div>
                         </div>
-                        <h3 class="font-bold text-slate-800">Notebook Exam Routine</h3>
-                        <p class="text-xs text-slate-500">Grid paper background with cute stationery markings and clean academic structures.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3-Step Explanation -->
-            <div class="max-w-5xl mx-auto bg-gradient-to-b from-pink-50/50 to-amber-50/30 rounded-3xl p-8 md:p-12 border border-pink-100/80">
-                <div class="text-center max-w-xl mx-auto mb-10 space-y-2">
-                    <h2 class="text-xs font-bold uppercase tracking-widest text-pink-500">Simple Workflow</h2>
-                    <h3 class="text-2xl font-bold text-slate-800">How to create your routine in seconds</h3>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-2xl shadow-xs border border-pink-100/60 space-y-3">
-                        <span class="text-2xl font-black text-pink-400">01</span>
-                        <h4 class="font-bold text-slate-800 text-lg">Enter Details</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">Add your routine title, date range, and course schedule. Days are calculated automatically!</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-xs border border-pink-100/60 space-y-3">
-                        <span class="text-2xl font-black text-pink-400">02</span>
-                        <h4 class="font-bold text-slate-800 text-lg">Customize & Font</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">Choose your favorite font (including Instrumental Serif) and fine-tune your routine entries.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-xs border border-pink-100/60 space-y-3">
-                        <span class="text-2xl font-black text-pink-400">03</span>
-                        <h4 class="font-bold text-slate-800 text-lg">Export & Print</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">Download your finished routine instantly as a pristine PNG image ready for printing or sharing.</p>
+                        <h3 class="font-instrument text-lg text-charcoal">Warm Butter Study</h3>
+                        <p class="text-xs text-warmBrown leading-relaxed">Warm caramel notes, delicate floral doodles, and grid layouts.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ==================== CREATE ROUTINE TAB ==================== -->
-        <section id="tab-create" class="tab-content hidden flex-1 flex flex-col md:flex-row overflow-hidden bg-slate-50">
+        <section id="tab-create" class="tab-content hidden flex-1 flex flex-col md:flex-row overflow-hidden bg-cream-200/50">
             
-            <!-- LEFT: Information & Form Editor -->
-            <div class="w-full md:w-[380px] bg-white border-r border-slate-200 flex flex-col h-full overflow-y-auto">
-                <div class="p-4 border-b border-slate-100 bg-pink-50/30 flex items-center justify-between">
-                    <h2 class="font-bold text-slate-800 flex items-center space-x-2">
-                        <i class="fa-solid fa-pen-nib text-pink-500"></i>
-                        <span>Routine Form</span>
+            <!-- LEFT: Editor Input Studio -->
+            <div class="w-full md:w-[380px] bg-cream-50 border-r border-cream-300 flex flex-col h-full overflow-y-auto">
+                <div class="p-4 border-b border-cream-300 bg-cream-100 flex items-center justify-between sticky top-0 z-10">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-charcoal flex items-center space-x-1.5">
+                        <i class="fa-solid fa-pencil text-dustyPink-500"></i>
+                        <span>Studio Editor</span>
                     </h2>
-                    <span class="text-[10px] bg-pink-100 text-pink-700 font-bold px-2 py-0.5 rounded-full">Auto-saving</span>
+                    <span class="text-[10px] bg-dustyPink-100 text-dustyPink-700 font-semibold px-2 py-0.5 rounded-full">Auto-saving</span>
                 </div>
 
-                <div class="p-4 space-y-6 flex-1">
-                    <!-- Basic Info Section -->
+                <div class="p-4 space-y-5 flex-1">
+                    <!-- Routine Information -->
                     <div class="space-y-3">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Basic Information</h3>
+                        <h3 class="text-[11px] font-bold uppercase tracking-wider text-warmBrown">1. Routine Information</h3>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">Routine Title</label>
-                            <input type="text" id="input-title" oninput="app.updateBasicInfo()" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50" placeholder="e.g. CHEMISTRY ROUTINE">
+                            <label class="block text-[10px] font-semibold text-warmBrown mb-1">Title</label>
+                            <input type="text" id="field-title" class="w-full px-3 py-1.5 text-xs rounded-xl border border-cream-300 focus:border-dustyPink-500 focus:outline-none bg-cream-50" placeholder="e.g. Weekly Study Plan">
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">Subtitle</label>
-                            <input type="text" id="input-subtitle" oninput="app.updateBasicInfo()" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50" placeholder="e.g. HSC 2026 PREPARATION">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">Date Range</label>
-                            <input type="text" id="input-daterange" oninput="app.updateBasicInfo()" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50" placeholder="e.g. 17 August – 23 August 2026">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-semibold text-warmBrown mb-1">Subtitle</label>
+                                <input type="text" id="field-subtitle" class="w-full px-3 py-1.5 text-xs rounded-xl border border-cream-300 focus:border-dustyPink-500 focus:outline-none bg-cream-50" placeholder="e.g. Chemistry & Physics">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-semibold text-warmBrown mb-1">Date Range</label>
+                                <input type="text" id="field-daterange" class="w-full px-3 py-1.5 text-xs rounded-xl border border-cream-300 focus:border-dustyPink-500 focus:outline-none bg-cream-50" placeholder="e.g. Oct 12 – Oct 18">
+                            </div>
                         </div>
                     </div>
 
-                    <hr class="border-slate-100">
+                    <hr class="border-cream-300">
 
-                    <!-- Routine Entries Section -->
+                    <!-- Layout Selector -->
                     <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Routine Entries</h3>
-                            <button onclick="app.addEntry()" class="text-xs bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold px-2.5 py-1 rounded-lg transition-all flex items-center space-x-1">
-                                <i class="fa-solid fa-plus text-[10px]"></i>
-                               <span>Add Entry</span>
+                        <h3 class="text-[11px] font-bold uppercase tracking-wider text-warmBrown">2. Choose Layout</h3>
+                        <div class="grid grid-cols-2 gap-2" id="layout-options-grid">
+                            <button onclick="app.setLayout('prettyTable')" data-layout="prettyTable" class="layout-card p-2 rounded-xl border text-left text-xs transition-all border-cream-300 bg-white hover:border-dustyPink-300">
+                                <span class="block font-bold text-[11px]">📊 Pretty Table</span>
+                                <span class="text-[9px] text-warmBrown">Structured timetable</span>
+                            </button>
+                            <button onclick="app.setLayout('ribbonTimeline')" data-layout="ribbonTimeline" class="layout-card p-2 rounded-xl border text-left text-xs transition-all border-cream-300 bg-white hover:border-dustyPink-300">
+                                <span class="block font-bold text-[11px]">🎀 Ribbon Line</span>
+                                <span class="text-[9px] text-warmBrown">Vertical flow</span>
+                            </button>
+                            <button onclick="app.setLayout('dailyNotes')" data-layout="dailyNotes" class="layout-card p-2 rounded-xl border text-left text-xs transition-all border-cream-300 bg-white hover:border-dustyPink-300">
+                                <span class="block font-bold text-[11px]">📝 Daily Notes</span>
+                                <span class="text-[9px] text-warmBrown">Mini paper cards</span>
+                            </button>
+                            <button onclick="app.setLayout('scrapbook')" data-layout="scrapbook" class="layout-card p-2 rounded-xl border text-left text-xs transition-all border-cream-300 bg-white hover:border-dustyPink-300">
+                                <span class="block font-bold text-[11px]">✂️ Scrapbook</span>
+                                <span class="text-[9px] text-warmBrown">Rotated scraps</span>
+                            </button>
+                            <button onclick="app.setLayout('weeklyPlanner')" data-layout="weeklyPlanner" class="layout-card p-2 rounded-xl border text-left text-xs transition-all border-cream-300 bg-white hover:border-dustyPink-300">
+                                <span class="block font-bold text-[11px]">📅 Weekly Grid</span>
+                                <span class="text-[9px] text-warmBrown">Planner columns</span>
+                            </button>
+                            <button onclick="app.setLayout('checklist')" data-layout="checklist" class="layout-card p-2 rounded-xl border text-left text-xs transition-all border-cream-300 bg-white hover:border-dustyPink-300">
+                                <span class="block font-bold text-[11px]">☑️ Checklist</span>
+                                <span class="text-[9px] text-warmBrown">Sticker boxes</span>
+                            </button>
+                            <button onclick="app.setLayout('editorial')" data-layout="editorial" class="layout-card p-2 rounded-xl border text-left text-xs transition-all border-cream-300 bg-white hover:border-dustyPink-300 col-span-2">
+                                <span class="block font-bold text-[11px]">✨ Editorial</span>
+                                <span class="text-[9px] text-warmBrown">Clean girl magazine aesthetic</span>
                             </button>
                         </div>
-                        
-                        <!-- Entries Container -->
-                        <div id="entries-form-list" class="space-y-3">
-                            <!-- Populated dynamically via JS -->
+                    </div>
+
+                    <hr class="border-cream-300">
+
+                    <!-- Aesthetic Theme Selector -->
+                    <div class="space-y-3">
+                        <h3 class="text-[11px] font-bold uppercase tracking-wider text-warmBrown">3. Aesthetic Vibe</h3>
+                        <div class="grid grid-cols-2 gap-2" id="theme-options-grid">
+                            <button onclick="app.setTheme('ribbon')" data-theme="ribbon" class="theme-card p-2 rounded-xl border text-left transition-all border-cream-300 bg-white flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-dustyPink-300 inline-block border border-dustyPink-500"></span>
+                                <span class="text-[11px] font-semibold">Ribbon Room</span>
+                            </button>
+                            <button onclick="app.setTheme('matcha')" data-theme="matcha" class="theme-card p-2 rounded-xl border text-left transition-all border-cream-300 bg-white flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-matcha-300 inline-block border border-matcha-500"></span>
+                                <span class="text-[11px] font-semibold">Matcha Memo</span>
+                            </button>
+                            <button onclick="app.setTheme('strawberry')" data-theme="strawberry" class="theme-card p-2 rounded-xl border text-left transition-all border-cream-300 bg-white flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-red-200 inline-block border border-red-400"></span>
+                                <span class="text-[11px] font-semibold">Strawberry Milk</span>
+                            </button>
+                            <button onclick="app.setTheme('butter')" data-theme="butter" class="theme-card p-2 rounded-xl border text-left transition-all border-cream-300 bg-white flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-butter-300 inline-block border border-butter-500"></span>
+                                <span class="text-[11px] font-semibold">Butter Note</span>
+                            </button>
+                            <button onclick="app.setTheme('blue')" data-theme="blue" class="theme-card p-2 rounded-xl border text-left transition-all border-cream-300 bg-white flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-powderBlue-300 inline-block border border-powderBlue-500"></span>
+                                <span class="text-[11px] font-semibold">Blue Letter</span>
+                            </button>
+                            <button onclick="app.setTheme('flower')" data-theme="flower" class="theme-card p-2 rounded-xl border text-left transition-all border-cream-300 bg-white flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-lavender-300 inline-block border border-lavender-500"></span>
+                                <span class="text-[11px] font-semibold">Flower Diary</span>
+                            </button>
+                            <button onclick="app.setTheme('study')" data-theme="study" class="theme-card p-2 rounded-xl border text-left transition-all border-cream-300 bg-white flex items-center space-x-2 col-span-2">
+                                <span class="w-4 h-4 rounded-full bg-stone-300 inline-block border border-stone-500"></span>
+                                <span class="text-[11px] font-semibold">Study Scrapbook</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr class="border-cream-300">
+
+                    <!-- Custom Font Selector Cards -->
+                    <div class="space-y-3">
+                        <h3 class="text-[11px] font-bold uppercase tracking-wider text-warmBrown">4. Header Font</h3>
+                        <div class="space-y-1.5" id="font-options-container">
+                            <button onclick="app.setFont('font-instrument')" data-font="font-instrument" class="font-card w-full p-2 rounded-xl border border-cream-300 bg-white text-left transition-all hover:border-dustyPink-300 flex justify-between items-center">
+                                <span class="font-instrument text-base">Instrument Serif</span>
+                                <span class="text-[9px] text-warmBrown">Editorial Title</span>
+                            </button>
+                            <button onclick="app.setFont('font-eagle')" data-font="font-eagle" class="font-card w-full p-2 rounded-xl border border-cream-300 bg-white text-left transition-all hover:border-dustyPink-300 flex justify-between items-center">
+                                <span class="font-eagle text-xs">Eagle Lake</span>
+                                <span class="text-[9px] text-warmBrown">Classic Serif</span>
+                            </button>
+                            <button onclick="app.setFont('font-beth')" data-font="font-beth" class="font-card w-full p-2 rounded-xl border border-cream-300 bg-white text-left transition-all hover:border-dustyPink-300 flex justify-between items-center">
+                                <span class="font-beth text-xs">Beth Ellen</span>
+                                <span class="text-[9px] text-warmBrown">Handwritten</span>
+                            </button>
+                            <button onclick="app.setFont('font-grace')" data-font="font-grace" class="font-card w-full p-2 rounded-xl border border-cream-300 bg-white text-left transition-all hover:border-dustyPink-300 flex justify-between items-center">
+                                <span class="font-grace text-sm">Covered By Your Grace</span>
+                                <span class="text-[9px] text-warmBrown">Casual Notes</span>
+                            </button>
+                            <button onclick="app.setFont('font-moms')" data-font="font-moms" class="font-card w-full p-2 rounded-xl border border-cream-300 bg-white text-left transition-all hover:border-dustyPink-300 flex justify-between items-center">
+                                <span class="font-moms text-xs">Momo Signature</span>
+                                <span class="text-[9px] text-warmBrown">Tiny Signature</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr class="border-cream-300">
+
+                    <!-- Routine Entries Input List -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-[11px] font-bold uppercase tracking-wider text-warmBrown">5. Entries</h3>
+                            <button onclick="app.addEntry()" class="text-[10px] bg-dustyPink-100 hover:bg-dustyPink-300 text-dustyPink-700 font-bold px-2.5 py-1 rounded-lg transition-all flex items-center space-x-1">
+                                <i class="fa-solid fa-plus text-[9px]"></i>
+                                <span>Add Entry</span>
+                            </button>
                         </div>
 
-                        <button onclick="app.addEntry()" class="w-full py-2.5 border-2 border-dashed border-pink-200 hover:border-pink-300 text-pink-600 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 bg-pink-50/30">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>+ Add another entry</span>
+                        <!-- Dynamic Container -->
+                        <div id="entries-container" class="space-y-3"></div>
+
+                        <button onclick="app.addEntry()" class="w-full py-2 border border-dashed border-dustyPink-300 hover:border-dustyPink-500 text-dustyPink-700 rounded-xl text-xs font-semibold transition-all bg-dustyPink-100/30 flex items-center justify-center space-x-1">
+                            <i class="fa-solid fa-plus text-[10px]"></i>
+                            <span>+ Add routine item</span>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- CENTER: Live Preview Area -->
-            <div class="flex-1 flex flex-col h-full overflow-hidden bg-[#f3efe6] relative">
-                <!-- Preview Toolbar -->
-                <div class="bg-white/90 backdrop-blur-md px-6 py-3 border-b border-slate-200/60 flex items-center justify-between z-20">
-                    <div class="flex items-center space-x-3">
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Live Preview</span>
-                        <div class="h-4 w-px bg-slate-200"></div>
-                        <span class="text-xs font-bold text-pink-600 bg-pink-50 px-2.5 py-1 rounded-md border border-pink-100">Polished Routine Design</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="app.exportImage()" class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center space-x-1.5">
-                            <i class="fa-solid fa-download"></i>
-                            <span>Download PNG</span>
-                        </button>
-                    </div>
+            <!-- RIGHT: Live Preview Canvas -->
+            <div class="flex-1 flex flex-col h-full overflow-hidden relative">
+                <!-- Preview Header Bar -->
+                <div class="bg-cream-50/80 backdrop-blur-md px-6 py-2.5 border-b border-cream-300 flex items-center justify-between z-20">
+                    <span class="text-xs font-semibold text-warmBrown">Paper Routine Preview</span>
+                    <button onclick="app.exportPNG()" class="bg-charcoal hover:bg-dustyPink-700 text-cream-50 px-4 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs flex items-center space-x-1.5">
+                        <i class="fa-solid fa-download text-[10px]"></i>
+                        <span>Export PNG</span>
+                    </button>
                 </div>
 
-                <!-- Canvas Scrollable Area -->
-                <div class="flex-1 overflow-auto p-6 md:p-10 flex items-center justify-center">
-                    <!-- Exportable Routine Container -->
-                    <div id="routine-canvas" class="w-full max-w-2xl bg-white rounded-3xl shadow-xl relative transition-all duration-300 overflow-hidden paper-texture p-8 md:p-12">
-                        <!-- Populated by Engine -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- RIGHT: Customization & Font Controls -->
-            <div class="w-full md:w-[320px] bg-white border-l border-slate-200 flex flex-col h-full overflow-y-auto">
-                <div class="p-4 border-b border-slate-100 bg-pink-50/30 flex items-center justify-between">
-                    <h2 class="font-bold text-slate-800 flex items-center space-x-2">
-                        <i class="fa-solid fa-font text-pink-500"></i>
-                        <span>Style & Font Options</span>
-                    </h2>
-                </div>
-
-                <div class="p-4 space-y-6 flex-1">
-                    <!-- Font Family Selector -->
-                    <div class="space-y-3">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Heading Font</h3>
-                        <select id="select-font-family" onchange="app.updateFontFamily(this.value)" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50 font-semibold">
-                            <option value="font-instrumental">Instrumental Serif (Elegant Academic)</option>
-                            <option value="font-playfair">Playfair Display (Classic Serif)</option>
-                            <option value="font-quicksand">Quicksand (Rounded Modern)</option>
-                            <option value="font-nunito">Nunito (Clean Sans-Serif)</option>
-                        </select>
-                    </div>
-
-                    <hr class="border-slate-100">
-
-                    <!-- Layout Style Selector -->
-                    <div class="space-y-3">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Layout Style</h3>
-                        <select id="select-layout-style" onchange="app.updateLayoutStyle(this.value)" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none bg-slate-50/50 font-semibold">
-                            <option value="table">Table Style</option>
-                            <option value="timeline">Timeline Style</option>
-                            <option value="daily">Daily Card Style</option>
-                            <option value="checklist">Checklist Style</option>
-                        </select>
-                    </div>
-
-                    <hr class="border-slate-100">
-
-                    <!-- Decorations Toggle -->
-                    <div class="space-y-3">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Decorations</h3>
-                        <div class="space-y-2">
-                            <label class="flex items-center justify-between text-xs font-semibold text-slate-600">
-                                <span>Show Washi Tape</span>
-                                <input type="checkbox" id="toggle-washetape" checked onchange="app.toggleDecoration('washiTape', this.checked)" class="rounded text-pink-500 focus:ring-pink-400">
-                            </label>
-                            <label class="flex items-center justify-between text-xs font-semibold text-slate-600">
-                                <span>Show Cute Doodles/Icons</span>
-                                <input type="checkbox" id="toggle-doodles" checked onchange="app.toggleDecoration('doodles', this.checked)" class="rounded text-pink-500 focus:ring-pink-400">
-                            </label>
-                        </div>
+                <!-- Scrollable Preview Area -->
+                <div class="flex-1 overflow-auto p-4 md:p-8 flex items-center justify-center">
+                    <!-- Export Target Box -->
+                    <div id="routine-preview-card" class="w-full max-w-2xl bg-cream-50 rounded-2xl shadow-sm border border-cream-300 p-8 md:p-12 transition-all relative overflow-hidden washi-tape">
+                        <!-- Populated dynamically via JS -->
                     </div>
                 </div>
             </div>
@@ -472,48 +407,38 @@
         </section>
 
         <!-- ==================== MY ROUTINES TAB ==================== -->
-        <section id="tab-my-routines" class="tab-content hidden flex-1 overflow-y-auto p-6 md:p-12 space-y-8">
-            <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <section id="tab-my-routines" class="tab-content hidden flex-1 overflow-y-auto p-6 md:p-12 space-y-6 max-w-5xl mx-auto w-full">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-cream-300 pb-4">
                 <div>
-                    <h2 class="text-3xl font-extrabold text-slate-800">My Saved Routines ✦</h2>
-                    <p class="text-slate-500 text-sm">All your created routines are automatically saved locally.</p>
+                    <h2 class="font-instrument text-3xl text-charcoal">My Saved Routines ✦</h2>
+                    <p class="text-xs text-warmBrown">Your created schedules are automatically stored in local browser memory.</p>
                 </div>
-                <button onclick="app.createNewRoutine()" class="bg-pink-500 hover:bg-pink-600 text-white px-5 py-2.5 rounded-2xl font-bold text-sm shadow-sm transition-all flex items-center space-x-2">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>New Routine</span>
+                <button onclick="app.createNewRoutine()" class="bg-dustyPink-500 hover:bg-dustyPink-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all">
+                    + New Routine
                 </button>
             </div>
 
-            <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="my-routines-grid">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="my-routines-grid">
                 <!-- Populated via JS -->
             </div>
         </section>
 
         <!-- ==================== SETTINGS TAB ==================== -->
-        <section id="tab-settings" class="tab-content hidden flex-1 overflow-y-auto p-6 md:p-12 space-y-8">
-            <div class="max-w-2xl mx-auto bg-white rounded-3xl p-8 border border-pink-100 shadow-sm space-y-6">
+        <section id="tab-settings" class="tab-content hidden flex-1 overflow-y-auto p-6 md:p-12 space-y-6 max-w-2xl mx-auto w-full">
+            <div class="bg-cream-50 rounded-2xl p-6 border border-cream-300 space-y-6">
                 <div>
-                    <h2 class="text-2xl font-extrabold text-slate-800">Settings & Preferences ✦</h2>
-                    <p class="text-xs text-slate-400 mt-1">Manage application storage and preferences.</p>
+                    <h2 class="font-instrument text-2xl text-charcoal">Settings & Storage ✦</h2>
+                    <p class="text-xs text-warmBrown">Manage app memory and preferences.</p>
                 </div>
 
-                <hr class="border-slate-100">
+                <hr class="border-cream-300">
 
-                <div class="space-y-4">
-                    <h3 class="text-sm font-bold text-slate-700">Storage Management</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed">Your routines are stored in your browser's LocalStorage. You can clear all saved data or export a backup.</p>
-                    <div class="flex space-x-3 pt-2">
-                        <button onclick="app.clearAllData()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-4 py-2 rounded-xl text-xs font-bold transition-all border border-rose-200">
-                            Clear All Saved Routines
-                        </button>
-                    </div>
-                </div>
-
-                <hr class="border-slate-100">
-
-                <div class="space-y-2">
-                    <h3 class="text-sm font-bold text-slate-700">About Routie</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed">Routie is a Canva-style aesthetic routine designer built for students, teachers, and planners. Version 1.1.0 ✦</p>
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-warmBrown">Browser Storage</h3>
+                    <p class="text-xs text-warmBrown leading-relaxed">Routie stores all schedules locally in your browser session. No cloud database required.</p>
+                    <button onclick="app.clearStorage()" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-4 py-2 rounded-xl text-xs font-bold transition-all">
+                        Clear All Saved Routines
+                    </button>
                 </div>
             </div>
         </section>
@@ -521,346 +446,422 @@
     </main>
 
     <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900/90 backdrop-blur-md text-white px-5 py-3 rounded-2xl text-xs font-bold shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center space-x-2">
-        <span class="text-pink-400">✦</span>
-        <span id="toast-message">Notification message here</span>
+    <div id="toast" class="fixed bottom-6 right-6 bg-charcoal text-cream-50 px-4 py-2.5 rounded-xl text-xs font-medium shadow-md opacity-0 translate-y-4 transition-all duration-300 z-50 flex items-center space-x-2">
+        <span class="text-dustyPink-300">✦</span>
+        <span id="toast-message">Notification</span>
     </div>
 
     <!-- Application JavaScript Logic -->
     <script>
-        // State Management
-        class RoutineApp {
+        class RoutieEngine {
             constructor() {
-                this.currentTab = 'home';
                 this.routines = this.loadRoutines();
-                this.currentRoutineId = null;
-                this.activeLayoutStyle = 'table';
-                this.activeFontFamily = 'font-instrumental';
-                this.showWashiTape = true;
-                this.showDoodles = true;
-
-                // Initialize demo data if no routines exist
-                if (this.routines.length === 0) {
-                    const demoRoutine = {
-                        id: 'demo-' + Date.now(),
-                        title: 'CHEMISTRY ROUTINE',
-                        subtitle: 'HSC 2026 PREPARATION',
-                        dateRange: '17 August – 23 August 2026',
-                        layoutStyle: 'table',
-                        fontFamily: 'font-instrumental',
-                        entries: [
-                            { id: 1, date: '2026-08-17', time: '5:30–7:30 PM', subject: 'Chemistry', topic: 'Chemical Bonding', teacher: 'Dr. Smith', notes: 'Chapter 2', type: 'Class' },
-                            { id: 2, date: '2026-08-18', time: '8:00–10:00 PM', subject: 'Chemistry', topic: 'Organic Chemistry', teacher: 'Dr. Smith', notes: 'Reaction mechanisms', type: 'Study' },
-                            { id: 3, date: '2026-08-20', time: '5:30–7:30 PM', subject: 'Chemistry', topic: 'Periodicity', teacher: 'Prof. Davis', notes: 'Periodic trends', type: 'Revision' },
-                            { id: 4, date: '2026-08-22', time: '7:00–9:00 PM', subject: 'Chemistry', topic: 'MCQ Practice', teacher: 'Self', notes: 'Past papers', type: 'Exam' }
-                        ]
-                    };
-                    this.routines.push(demoRoutine);
-                    this.currentRoutineId = demoRoutine.id;
-                    this.saveRoutines();
-                } else {
-                    this.currentRoutineId = this.routines[0].id;
+                this.activeId = this.routines.length > 0 ? this.routines[0].id : null;
+                
+                if (!this.activeId) {
+                    this.createNewRoutine();
                 }
 
-                this.init();
+                this.initApp();
             }
 
-            init() {
-                this.loadCurrentRoutineIntoForm();
-                this.renderRoutineCanvas();
-                this.renderMyRoutines();
+            initApp() {
+                this.bindStaticFormListeners();
+                this.syncFormValues();
+                this.renderEntriesDOM();
+                this.renderPreview();
+                this.renderMyRoutinesGrid();
             }
 
             loadRoutines() {
-                const data = localStorage.getItem('routine_maker_routines');
-                return data ? JSON.parse(data) : [];
+                const stored = localStorage.getItem('routie_saved_routines');
+                if (stored) {
+                    try { return JSON.parse(stored); } catch(e) { return []; }
+                }
+                // Default Initial Demo Routine
+                return [{
+                    id: 'routine-' + Date.now(),
+                    title: 'WEEKLY STUDY PLAN',
+                    subtitle: 'Chemistry & Physics',
+                    dateRange: 'Oct 12 – Oct 18',
+                    layout: 'prettyTable',
+                    theme: 'ribbon',
+                    font: 'font-instrument',
+                    entries: [
+                        { id: 'e1', date: '2026-10-12', day: 'Monday', time: '5:00 PM', subject: 'Chemistry', topic: 'Chemical Bonding', notes: 'Chapter 3' },
+                        { id: 'e2', date: '2026-10-13', day: 'Tuesday', time: '8:00 PM', subject: 'Physics', topic: 'Vectors & Forces', notes: 'Practice Sets' }
+                    ]
+                }];
             }
 
             saveRoutines() {
-                localStorage.setItem('routine_maker_routines', JSON.stringify(this.routines));
-                this.renderMyRoutines();
+                localStorage.setItem('routie_saved_routines', JSON.stringify(this.routines));
+                this.renderMyRoutinesGrid();
             }
 
-            getCurrentRoutine() {
-                return this.routines.find(r => r.id === this.currentRoutineId) || this.routines[0];
+            getActiveRoutine() {
+                return this.routines.find(r => r.id === this.activeId) || this.routines[0];
             }
 
             switchTab(tabId) {
-                this.currentTab = tabId;
                 document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
                 document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
-                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('text-pink-600', 'bg-pink-100/50'));
-                const activeNav = document.getElementById(`nav-${tabId}`);
-                if (activeNav) activeNav.classList.add('text-pink-600', 'bg-pink-100/50');
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('text-dustyPink-700', 'bg-cream-200'));
+                const navBtn = document.getElementById(`nav-${tabId}`);
+                if (navBtn) navBtn.classList.add('text-dustyPink-700', 'bg-cream-200');
 
                 if (tabId === 'create') {
-                    this.loadCurrentRoutineIntoForm();
-                    this.renderRoutineCanvas();
+                    this.syncFormValues();
+                    this.renderPreview();
                 }
             }
 
             toggleMobileMenu() {
-                const menu = document.getElementById('mobile-menu');
-                menu.classList.toggle('hidden');
+                document.getElementById('mobile-menu').classList.toggle('hidden');
             }
 
             showToast(msg) {
                 const toast = document.getElementById('toast');
                 document.getElementById('toast-message').textContent = msg;
-                toast.classList.remove('translate-y-20', 'opacity-0');
+                toast.classList.remove('opacity-0', 'translate-y-4');
                 setTimeout(() => {
-                    toast.classList.add('translate-y-20', 'opacity-0');
-                }, 3000);
+                    toast.classList.add('opacity-0', 'translate-y-4');
+                }, 2500);
             }
 
-            // Smart Date Handling
-            calculateDay(dateString) {
-                if (!dateString) return '';
-                const d = new Date(dateString);
+            // CRITICAL INPUT FIX: Pure State Update without Rebuilding Active Inputs
+            bindStaticFormListeners() {
+                const titleInput = document.getElementById('field-title');
+                const subtitleInput = document.getElementById('field-subtitle');
+                const daterangeInput = document.getElementById('field-daterange');
+
+                titleInput.addEventListener('input', (e) => {
+                    this.getActiveRoutine().title = e.target.value;
+                    this.saveRoutines();
+                    this.renderPreview();
+                });
+
+                subtitleInput.addEventListener('input', (e) => {
+                    this.getActiveRoutine().subtitle = e.target.value;
+                    this.saveRoutines();
+                    this.renderPreview();
+                });
+
+                daterangeInput.addEventListener('input', (e) => {
+                    this.getActiveRoutine().dateRange = e.target.value;
+                    this.saveRoutines();
+                    this.renderPreview();
+                });
+
+                // Event Delegation for Entry Dynamic Inputs
+                const container = document.getElementById('entries-container');
+                container.addEventListener('input', (e) => {
+                    const target = e.target;
+                    const entryCard = target.closest('[data-entry-id]');
+                    if (!entryCard) return;
+
+                    const entryId = entryCard.getAttribute('data-entry-id');
+                    const field = target.getAttribute('data-field');
+                    if (!field) return;
+
+                    const entry = this.getActiveRoutine().entries.find(item => item.id === entryId);
+                    if (entry) {
+                        entry[field] = target.value;
+                        if (field === 'date') {
+                            entry.day = this.calculateDay(target.value);
+                            const dayInput = entryCard.querySelector('[data-field="day"]');
+                            if (dayInput) dayInput.value = entry.day;
+                        }
+                        this.saveRoutines();
+                        this.renderPreview();
+                    }
+                });
+            }
+
+            calculateDay(dateStr) {
+                if (!dateStr) return '';
+                const d = new Date(dateStr);
                 if (isNaN(d.getTime())) return '';
-                return d.toLocaleDateString('en-US', { weekday: 'long' });
+                return d.toLocaleDateString('en-US', { weekday: 'Long' });
             }
 
-            // Form Management
-            loadCurrentRoutineIntoForm() {
-                const r = this.getCurrentRoutine();
-                document.getElementById('input-title').value = r.title || '';
-                document.getElementById('input-subtitle').value = r.subtitle || '';
-                document.getElementById('input-daterange').value = r.dateRange || '';
-                this.activeLayoutStyle = r.layoutStyle || 'table';
-                document.getElementById('select-layout-style').value = this.activeLayoutStyle;
+            syncFormValues() {
+                const r = this.getActiveRoutine();
+                document.getElementById('field-title').value = r.title || '';
+                document.getElementById('field-subtitle').value = r.subtitle || '';
+                document.getElementById('field-daterange').value = r.dateRange || '';
 
-                this.activeFontFamily = r.fontFamily || 'font-instrumental';
-                document.getElementById('select-font-family').value = this.activeFontFamily;
-
-                this.renderEntriesForm();
+                this.highlightOptionCards();
             }
 
-            updateBasicInfo() {
-                const r = this.getCurrentRoutine();
-                r.title = document.getElementById('input-title').value;
-                r.subtitle = document.getElementById('input-subtitle').value;
-                r.dateRange = document.getElementById('input-daterange').value;
+            setLayout(layoutKey) {
+                this.getActiveRoutine().layout = layoutKey;
                 this.saveRoutines();
-                this.renderRoutineCanvas();
+                this.highlightOptionCards();
+                this.renderPreview();
             }
 
-            renderEntriesForm() {
-                const r = this.getCurrentRoutine();
-                const container = document.getElementById('entries-form-list');
-                container.innerHTML = '';
+            setTheme(themeKey) {
+                this.getActiveRoutine().theme = themeKey;
+                this.saveRoutines();
+                this.highlightOptionCards();
+                this.renderPreview();
+            }
 
-                r.entries.forEach((entry, idx) => {
-                    const day = entry.date ? this.calculateDay(entry.date) : '';
-                    const div = document.createElement('div');
-                    div.className = 'bg-slate-50 border border-slate-200 p-3 rounded-2xl space-y-2.5 relative group';
-                    div.innerHTML = `
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-extrabold uppercase text-pink-600 bg-pink-100 px-2 py-0.5 rounded">Entry #${idx + 1}</span>
+            setFont(fontKey) {
+                this.getActiveRoutine().font = fontKey;
+                this.saveRoutines();
+                this.highlightOptionCards();
+                this.renderPreview();
+            }
+
+            highlightOptionCards() {
+                const r = this.getActiveRoutine();
+
+                document.querySelectorAll('.layout-card').forEach(card => {
+                    const isSelected = card.getAttribute('data-layout') === r.layout;
+                    card.classList.toggle('border-dustyPink-500', isSelected);
+                    card.classList.toggle('bg-dustyPink-100/40', isSelected);
+                });
+
+                document.querySelectorAll('.theme-card').forEach(card => {
+                    const isSelected = card.getAttribute('data-theme') === r.theme;
+                    card.classList.toggle('border-dustyPink-500', isSelected);
+                    card.classList.toggle('bg-dustyPink-100/40', isSelected);
+                });
+
+                document.querySelectorAll('.font-card').forEach(card => {
+                    const isSelected = card.getAttribute('data-font') === r.font;
+                    card.classList.toggle('border-dustyPink-500', isSelected);
+                    card.classList.toggle('bg-dustyPink-100/40', isSelected);
+                });
+            }
+
+            // Render Entry Forms ONLY when entries are added/removed/swapped
+            renderEntriesDOM() {
+                const container = document.getElementById('entries-container');
+                container.innerHTML = '';
+                const entries = this.getActiveRoutine().entries;
+
+                entries.forEach((entry, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-3 rounded-xl border border-cream-300 space-y-2 relative';
+                    card.setAttribute('data-entry-id', entry.id);
+
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between pb-1 border-b border-cream-200">
+                            <span class="text-[9px] font-bold text-warmBrown uppercase">Item #${idx + 1}</span>
                             <div class="flex items-center space-x-1">
-                                <button onclick="app.duplicateEntry(${entry.id})" title="Duplicate" class="text-slate-400 hover:text-slate-600 p-1"><i class="fa-solid fa-copy text-xs"></i></button>
-                                <button onclick="app.deleteEntry(${entry.id})" title="Delete" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-trash text-xs"></i></button>
+                                <button onclick="app.duplicateEntry('${entry.id}')" title="Duplicate" class="p-1 text-warmBrown hover:text-charcoal"><i class="fa-solid fa-copy text-[10px]"></i></button>
+                                <button onclick="app.deleteEntry('${entry.id}')" title="Delete" class="p-1 text-warmBrown hover:text-red-500"><i class="fa-solid fa-trash text-[10px]"></i></button>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Date</label>
-                                <input type="date" value="${entry.date || ''}" onchange="app.updateEntryField(${entry.id}, 'date', this.value)" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                                <label class="block text-[9px] font-semibold text-warmBrown">Date</label>
+                                <input type="date" data-field="date" value="${entry.date || ''}" class="w-full px-2 py-1 text-xs rounded-lg border border-cream-300 bg-cream-50">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Day (Auto)</label>
-                                <input type="text" disabled value="${day}" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-100 text-slate-500 font-medium">
+                                <label class="block text-[9px] font-semibold text-warmBrown">Day</label>
+                                <input type="text" data-field="day" value="${entry.day || ''}" class="w-full px-2 py-1 text-xs rounded-lg border border-cream-300 bg-cream-100 text-warmBrown">
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Time</label>
-                                <input type="text" value="${entry.time || ''}" oninput="app.updateEntryField(${entry.id}, 'time', this.value)" placeholder="e.g. 5:30–7:30 PM" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                                <label class="block text-[9px] font-semibold text-warmBrown">Time</label>
+                                <input type="text" data-field="time" value="${entry.time || ''}" placeholder="e.g. 5:00 PM" class="w-full px-2 py-1 text-xs rounded-lg border border-cream-300 bg-cream-50">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Subject</label>
-                                <input type="text" value="${entry.subject || ''}" oninput="app.updateEntryField(${entry.id}, 'subject', this.value)" placeholder="e.g. Chemistry" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                                <label class="block text-[9px] font-semibold text-warmBrown">Subject</label>
+                                <input type="text" data-field="subject" value="${entry.subject || ''}" placeholder="e.g. Chemistry" class="w-full px-2 py-1 text-xs rounded-lg border border-cream-300 bg-cream-50">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Topic</label>
-                            <input type="text" value="${entry.topic || ''}" oninput="app.updateEntryField(${entry.id}, 'topic', this.value)" placeholder="e.g. Chemical Bonding" class="w-full px-2 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                            <label class="block text-[9px] font-semibold text-warmBrown">Topic</label>
+                            <input type="text" data-field="topic" value="${entry.topic || ''}" placeholder="e.g. Chemical Bonding" class="w-full px-2 py-1 text-xs rounded-lg border border-cream-300 bg-cream-50">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-semibold text-warmBrown">Notes / Info</label>
+                            <input type="text" data-field="notes" value="${entry.notes || ''}" placeholder="e.g. Chapter 3" class="w-full px-2 py-1 text-xs rounded-lg border border-cream-300 bg-cream-50">
                         </div>
                     `;
-                    container.appendChild(div);
+                    container.appendChild(card);
                 });
             }
 
             addEntry() {
-                const r = this.getCurrentRoutine();
-                const newId = r.entries.length > 0 ? Math.max(...r.entries.map(e => e.id)) + 1 : 1;
-                r.entries.push({
+                const newId = 'e-' + Date.now();
+                this.getActiveRoutine().entries.push({
                     id: newId,
-                    date: new Date().toISOString().split('T')[0],
-                    time: '9:00–11:00 AM',
-                    subject: 'New Subject',
-                    topic: 'Topic Name',
-                    type: 'Study'
+                    date: '',
+                    day: '',
+                    time: '',
+                    subject: '',
+                    topic: '',
+                    notes: ''
                 });
                 this.saveRoutines();
-                this.renderEntriesForm();
-                this.renderRoutineCanvas();
-                this.showToast('Entry added successfully ♡');
+                this.renderEntriesDOM();
+                this.renderPreview();
+
+                // Focus first input of newly created entry
+                setTimeout(() => {
+                    const newCard = document.querySelector(`[data-entry-id="${newId}"]`);
+                    if (newCard) {
+                        const firstInput = newCard.querySelector('input');
+                        if (firstInput) firstInput.focus();
+                    }
+                }, 50);
+            }
+
+            duplicateEntry(id) {
+                const entries = this.getActiveRoutine().entries;
+                const target = entries.find(e => e.id === id);
+                if (target) {
+                    const clone = { ...target, id: 'e-' + Date.now() };
+                    entries.push(clone);
+                    this.saveRoutines();
+                    this.renderEntriesDOM();
+                    this.renderPreview();
+                }
             }
 
             deleteEntry(id) {
-                const r = this.getCurrentRoutine();
+                const r = this.getActiveRoutine();
                 if (r.entries.length <= 1) {
-                    this.showToast('Oops! Keep at least one entry. ♡');
+                    this.showToast('Please keep at least one entry. ♡');
                     return;
                 }
                 r.entries = r.entries.filter(e => e.id !== id);
                 this.saveRoutines();
-                this.renderEntriesForm();
-                this.renderRoutineCanvas();
-                this.showToast('Entry deleted.');
+                this.renderEntriesDOM();
+                this.renderPreview();
             }
 
-            duplicateEntry(id) {
-                const r = this.getCurrentRoutine();
-                const target = r.entries.find(e => e.id === id);
-                if (target) {
-                    const newId = Math.max(...r.entries.map(e => e.id)) + 1;
-                    const clone = { ...target, id: newId };
-                    r.entries.push(clone);
-                    this.saveRoutines();
-                    this.renderEntriesForm();
-                    this.renderRoutineCanvas();
-                    this.showToast('Entry duplicated ✦');
-                }
-            }
+            // Live Preview Engine
+            renderPreview() {
+                const canvas = document.getElementById('routine-preview-card');
+                const r = this.getActiveRoutine();
+                
+                // Theme CSS Class
+                canvas.className = `w-full max-w-2xl rounded-2xl shadow-sm border p-8 md:p-12 transition-all relative overflow-hidden washi-tape theme-${r.theme}`;
 
-            updateEntryField(id, field, val) {
-                const r = this.getCurrentRoutine();
-                const target = r.entries.find(e => e.id === id);
-                if (target) {
-                    target[field] = val;
-                    this.saveRoutines();
-                    this.renderEntriesForm();
-                    this.renderRoutineCanvas();
-                }
-            }
-
-            updateLayoutStyle(style) {
-                this.activeLayoutStyle = style;
-                const r = this.getCurrentRoutine();
-                r.layoutStyle = style;
-                this.saveRoutines();
-                this.renderRoutineCanvas();
-            }
-
-            updateFontFamily(font) {
-                this.activeFontFamily = font;
-                const r = this.getCurrentRoutine();
-                r.fontFamily = font;
-                this.saveRoutines();
-                this.renderRoutineCanvas();
-                this.showToast('Font updated ✦');
-            }
-
-            toggleDecoration(type, val) {
-                if (type === 'washiTape') this.showWashiTape = val;
-                if (type === 'doodles') this.showDoodles = val;
-                this.renderRoutineCanvas();
-            }
-
-            // Routine Canvas Rendering Engine
-            renderRoutineCanvas() {
-                const canvas = document.getElementById('routine-canvas');
-                const r = this.getCurrentRoutine();
-                const fontClass = this.activeFontFamily || 'font-instrumental';
-
-                let decorationHTML = '';
-                if (this.showWashiTape) {
-                    decorationHTML += `<div class="washi-tape-top"></div>`;
-                }
-                if (this.showDoodles) {
-                    decorationHTML += `<div class="absolute top-4 right-4 text-pink-300 text-xl animate-float">🎀</div>`;
-                    decorationHTML += `<div class="absolute bottom-4 left-4 text-pink-300 text-lg">♡</div>`;
-                }
+                const fontClass = r.font || 'font-instrument';
 
                 let contentHTML = '';
-                if (this.activeLayoutStyle === 'table') {
+
+                if (r.layout === 'prettyTable') {
                     contentHTML = `
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="border-b-2 border-slate-200 text-xs font-extrabold uppercase tracking-wider text-slate-500">
-                                        <th class="py-3 px-3">Date / Day</th>
-                                        <th class="py-3 px-3">Time</th>
-                                        <th class="py-3 px-3">Subject</th>
-                                        <th class="py-3 px-3">Topic</th>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b theme-border text-[10px] font-bold uppercase tracking-wider">
+                                    <th class="py-2 px-2">Date / Day</th>
+                                    <th class="py-2 px-2">Time</th>
+                                    <th class="py-2 px-2">Subject</th>
+                                    <th class="py-2 px-2">Topic</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-black/5 text-xs">
+                                ${r.entries.map(e => `
+                                    <tr>
+                                        <td class="py-3 px-2 font-medium">
+                                            <div>${e.date || ''}</div>
+                                            <div class="text-[9px] opacity-70">${e.day || ''}</div>
+                                        </td>
+                                        <td class="py-3 px-2 opacity-80">${e.time || ''}</td>
+                                        <td class="py-3 px-2 font-bold">${e.subject || ''}</td>
+                                        <td class="py-3 px-2 opacity-90">${e.topic || ''} <span class="text-[9px] opacity-60">${e.notes ? '(' + e.notes + ')' : ''}</span></td>
                                     </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100 text-xs">
-                                    ${r.entries.map(e => `
-                                        <tr class="hover:bg-slate-50/50 transition-colors">
-                                            <td class="py-3.5 px-3 font-bold text-slate-800">
-                                                <div>${e.date || ''}</div>
-                                                <div class="text-[10px] text-pink-600 font-semibold">${this.calculateDay(e.date)}</div>
-                                            </td>
-                                            <td class="py-3.5 px-3 text-slate-600 font-medium">${e.time || ''}</td>
-                                            <td class="py-3.5 px-3 font-bold text-slate-700">${e.subject || ''}</td>
-                                            <td class="py-3.5 px-3 text-slate-600">${e.topic || ''}</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
+                                `).join('')}
+                            </tbody>
+                        </table>
                     `;
-                } else if (this.activeLayoutStyle === 'timeline') {
+                } else if (r.layout === 'ribbonTimeline') {
                     contentHTML = `
-                        <div class="space-y-4 relative before:absolute before:inset-0 before:left-3 before:w-0.5 before:bg-pink-200">
+                        <div class="space-y-4 relative before:absolute before:inset-0 before:left-2 before:w-0.5 before:bg-current before:opacity-20">
                             ${r.entries.map(e => `
-                                <div class="relative flex items-start space-x-4 pl-8">
-                                    <div class="absolute left-1.5 top-1.5 w-3.5 h-3.5 rounded-full bg-pink-400 border-2 border-white shadow-sm"></div>
-                                    <div class="bg-slate-50/80 border border-slate-200/60 p-4 rounded-2xl flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                                <div class="relative pl-6 flex items-start space-x-3">
+                                    <span class="absolute left-0 top-1 text-xs">🎀</span>
+                                    <div class="p-3 rounded-xl border theme-border theme-bg flex-1 flex justify-between items-center">
                                         <div>
-                                            <span class="text-[10px] font-extrabold text-pink-600 uppercase tracking-wider">${e.date || ''} (${this.calculateDay(e.date)})</span>
-                                            <h4 class="font-bold text-slate-800 text-sm mt-0.5">${e.subject}: ${e.topic}</h4>
+                                            <span class="text-[9px] uppercase font-bold opacity-70">${e.day}${e.date}</span>
+                                            <h4 class="font-bold text-xs mt-0.5">${e.subject}:${e.topic}</h4>
+                                            <p class="text-[10px] opacity-70">${e.notes || ''}</p>
                                         </div>
-                                        <span class="text-xs font-semibold bg-white px-3 py-1 rounded-full border border-slate-200 text-slate-600">${e.time}</span>
+                                        <span class="text-[10px] font-semibold opacity-80 bg-white/60 px-2 py-0.5 rounded-full border theme-border">${e.time}</span>
                                     </div>
                                 </div>
                             `).join('')}
                         </div>
                     `;
-                } else if (this.activeLayoutStyle === 'daily') {
+                } else if (r.layout === 'dailyNotes') {
+                    contentHTML = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            ${r.entries.map(e => `
+                                <div class="p-3.5 rounded-xl border theme-border theme-bg space-y-1">
+                                    <div class="flex justify-between items-center border-b theme-border pb-1">
+                                        <span class="text-[9px] font-bold uppercase">♡ ${e.day || 'Day'}</span>
+                                        <span class="text-[9px] opacity-70">${e.time || ''}</span>
+                                    </div>
+                                    <h4 class="font-bold text-xs">${e.subject || ''}</h4>
+                                    <p class="text-[11px] opacity-80">${e.topic || ''}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (r.layout === 'scrapbook') {
+                    const rotations = ['scrapbook-rotate-1', 'scrapbook-rotate-2', 'scrapbook-rotate-3'];
                     contentHTML = `
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            ${r.entries.map((e, idx) => `
+                                <div class="p-4 rounded-xl border theme-border bg-white shadow-xs ${rotations[idx % 3]} space-y-1">
+                                    <div class="text-[9px] font-bold opacity-60">✦ ${e.day}${e.date}</div>
+                                    <h4 class="font-bold text-sm">${e.subject}</h4>
+                                    <p class="text-xs opacity-80">${e.topic}</p>
+                                    <div class="text-[9px] pt-1 opacity-70">${e.time} •${e.notes}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (r.layout === 'weeklyPlanner') {
+                    contentHTML = `
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                             ${r.entries.map(e => `
-                                <div class="bg-slate-50/90 border border-slate-200/80 p-4 rounded-2xl space-y-2 shadow-2xs">
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-[10px] font-extrabold bg-pink-100 text-pink-700 px-2.5 py-0.5 rounded-full uppercase">${this.calculateDay(e.date) || 'Day'}</span>
-                                        <span class="text-[11px] font-bold text-slate-500">${e.date || ''}</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 text-sm">${e.subject} — ${e.topic}</h4>
-                                        <p class="text-xs text-pink-600 font-semibold mt-0.5"><i class="fa-regular fa-clock mr-1"></i>${e.time}</p>
+                                <div class="p-2.5 rounded-lg border theme-border theme-bg space-y-1">
+                                    <div class="font-bold text-[10px] uppercase border-b theme-border pb-0.5">${e.day || 'Day'}</div>
+                                    <div class="text-[11px] font-semibold">${e.subject}</div>
+                                    <div class="text-[10px] opacity-80">${e.topic}</div>
+                                    <div class="text-[9px] opacity-60">${e.time}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else if (r.layout === 'checklist') {
+                    contentHTML = `
+                        <div class="space-y-2">
+                            ${r.entries.map(e => `
+                                <div class="p-2.5 rounded-xl border theme-border theme-bg flex items-center space-x-3">
+                                    <div class="w-4 h-4 rounded border theme-border bg-white flex items-center justify-center text-[10px]">☐</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-xs">${e.subject} —${e.topic}</h4>
+                                        <p class="text-[9px] opacity-70">${e.day} •${e.time}</p>
                                     </div>
                                 </div>
                             `).join('')}
                         </div>
                     `;
-                } else if (this.activeLayoutStyle === 'checklist') {
+                } else if (r.layout === 'editorial') {
                     contentHTML = `
-                        <div class="space-y-3">
+                        <div class="space-y-4 max-w-md mx-auto">
                             ${r.entries.map(e => `
-                                <div class="bg-slate-50 border border-slate-200/80 p-3.5 rounded-2xl flex items-center justify-between">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-5 h-5 rounded-md border-2 border-pink-400 bg-white"></div>
-                                        <div>
-                                            <h4 class="font-bold text-slate-800 text-xs sm:text-sm">${e.subject} — ${e.topic}</h4>
-                                            <p class="text-[10px] text-slate-500 font-medium">${e.date} (${this.calculateDay(e.date)}) • ${e.time}</p>
-                                        </div>
+                                <div class="border-b theme-border pb-3 flex justify-between items-baseline">
+                                    <div>
+                                        <span class="text-[9px] uppercase tracking-widest opacity-60">${e.day}${e.time}</span>
+                                        <h4 class="text-sm font-semibold">${e.subject}</h4>
+                                        <p class="text-xs opacity-80">${e.topic}</p>
                                     </div>
-                                    <span class="text-[10px] bg-pink-50 text-pink-600 font-bold px-2 py-1 rounded-lg border border-pink-100">Study</span>
+                                    <span class="font-grace text-sm opacity-70">${e.notes || ''}</span>
                                 </div>
                             `).join('')}
                         </div>
@@ -868,48 +869,35 @@
                 }
 
                 canvas.innerHTML = `
-                    ${decorationHTML}
                     <div class="space-y-6">
-                        <div class="text-center space-y-1.5 pb-4 border-b border-slate-100">
-                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-pink-500 bg-pink-50 px-3 py-1 rounded-full border border-pink-100">${r.subtitle || 'STUDY ROUTINE'}</span>
-                            <h2 class="text-3xl md:text-4xl font-black text-slate-800 tracking-tight ${fontClass}">${r.title || 'ROUTINE'}</h2>
-                            <p class="text-xs font-semibold text-slate-400">${r.dateRange || ''}</p>
+                        <div class="text-center space-y-1 pb-4 border-b theme-border">
+                            <span class="text-[10px] tracking-widest font-bold uppercase opacity-70">${r.subtitle || ''}</span>
+                            <h2 class="text-3xl md:text-4xl ${fontClass}">${r.title || 'ROUTINE'}</h2>
+                            <p class="text-xs opacity-60">${r.dateRange || ''}</p>
                         </div>
                         ${contentHTML}
                     </div>
                 `;
             }
 
-            renderMyRoutines() {
+            renderMyRoutinesGrid() {
                 const grid = document.getElementById('my-routines-grid');
                 grid.innerHTML = '';
 
-                if (this.routines.length === 0) {
-                    grid.innerHTML = `
-                        <div class="col-span-full text-center py-12 space-y-3">
-                            <div class="text-4xl">✦</div>
-                            <h3 class="font-bold text-slate-700 text-lg">No routines yet</h3>
-                            <p class="text-xs text-slate-400">Your beautiful schedule is waiting to be made.</p>
-                            <button onclick="app.createNewRoutine()" class="mt-2 bg-pink-500 text-white px-5 py-2 rounded-xl text-xs font-bold">Create your first routine</button>
-                        </div>
-                    `;
-                    return;
-                }
-
                 this.routines.forEach(r => {
                     const card = document.createElement('div');
-                    card.className = 'bg-white p-6 rounded-3xl border border-pink-100 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between';
+                    card.className = 'bg-cream-50 p-5 rounded-2xl border border-cream-300 space-y-3 flex flex-col justify-between';
                     card.innerHTML = `
-                        <div class="space-y-2">
-                            <span class="text-[10px] font-bold text-pink-600 bg-pink-50 px-2 py-0.5 rounded">${r.dateRange || 'Weekly Plan'}</span>
-                            <h3 class="font-bold text-slate-800 text-base">${r.title || 'Untitled Routine'}</h3>
-                            <p class="text-xs text-slate-400">${r.entries.length} scheduled entries</p>
+                        <div class="space-y-1">
+                            <span class="text-[9px] font-bold text-dustyPink-700 uppercase bg-dustyPink-100 px-2 py-0.5 rounded">${r.dateRange || 'Routine'}</span>
+                            <h3 class="font-instrument text-xl text-charcoal">${r.title || 'Untitled'}</h3>
+                            <p class="text-xs text-warmBrown">${r.entries.length} scheduled items</p>
                         </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-                            <button onclick="app.openRoutine('${r.id}')" class="text-xs font-bold text-pink-600 hover:underline">Open & Edit</button>
-                            <div class="flex items-center space-x-2">
-                                <button onclick="app.duplicateRoutine('${r.id}')" title="Duplicate" class="text-slate-400 hover:text-slate-600 p-1.5"><i class="fa-solid fa-copy text-xs"></i></button>
-                                <button onclick="app.deleteRoutine('${r.id}')" title="Delete" class="text-slate-400 hover:text-rose-500 p-1.5"><i class="fa-solid fa-trash text-xs"></i></button>
+                        <div class="flex items-center justify-between pt-2 border-t border-cream-200">
+                            <button onclick="app.openRoutine('${r.id}')" class="text-xs font-bold text-dustyPink-700 hover:underline">Open Routine</button>
+                            <div class="flex space-x-2">
+                                <button onclick="app.duplicateRoutine('${r.id}')" title="Duplicate" class="p-1 text-warmBrown hover:text-charcoal"><i class="fa-solid fa-copy text-xs"></i></button>
+                                <button onclick="app.deleteRoutine('${r.id}')" title="Delete" class="p-1 text-warmBrown hover:text-red-500"><i class="fa-solid fa-trash text-xs"></i></button>
                             </div>
                         </div>
                     `;
@@ -920,24 +908,27 @@
             createNewRoutine() {
                 const newR = {
                     id: 'routine-' + Date.now(),
-                    title: 'MY STUDY ROUTINE',
-                    subtitle: 'WEEKLY SCHEDULE',
-                    dateRange: 'August 2026',
-                    layoutStyle: 'table',
-                    fontFamily: 'font-instrumental',
+                    title: 'MY NEW ROUTINE',
+                    subtitle: 'Weekly Goals',
+                    dateRange: 'This Week',
+                    layout: 'prettyTable',
+                    theme: 'ribbon',
+                    font: 'font-instrument',
                     entries: [
-                        { id: 1, date: new Date().toISOString().split('T')[0], time: '10:00–12:00 PM', subject: 'Mathematics', topic: 'Calculus', type: 'Study' }
+                        { id: 'e-' + Date.now(), date: '', day: 'Monday', time: '9:00 AM', subject: 'Subject 1', topic: 'Topic Details', notes: '' }
                     ]
                 };
                 this.routines.push(newR);
-                this.currentRoutineId = newR.id;
+                this.activeId = newR.id;
                 this.saveRoutines();
-                this.switchTab('create');
+                this.syncFormValues();
+                this.renderEntriesDOM();
+                this.renderPreview();
                 this.showToast('New routine created ✦');
             }
 
             openRoutine(id) {
-                this.currentRoutineId = id;
+                this.activeId = id;
                 this.switchTab('create');
             }
 
@@ -946,52 +937,52 @@
                 if (target) {
                     const clone = JSON.parse(JSON.stringify(target));
                     clone.id = 'routine-' + Date.now();
-                    clone.title = target.title + ' (Copy)';
+                    clone.title += ' (Copy)';
                     this.routines.push(clone);
                     this.saveRoutines();
-                    this.showToast('Routine duplicated successfully ✦');
+                    this.showToast('Routine duplicated ✦');
                 }
             }
 
             deleteRoutine(id) {
                 if (this.routines.length <= 1) {
-                    this.showToast('Oops! You need at least one routine. ♡');
+                    this.showToast('Keep at least one routine. ♡');
                     return;
                 }
                 this.routines = this.routines.filter(r => r.id !== id);
-                if (this.currentRoutineId === id) {
-                    this.currentRoutineId = this.routines[0].id;
+                if (this.activeId === id) {
+                    this.activeId = this.routines[0].id;
                 }
                 this.saveRoutines();
+                this.renderMyRoutinesGrid();
                 this.showToast('Routine deleted.');
             }
 
-            clearAllData() {
-                if (confirm('Are you sure you want to clear all saved routines?')) {
-                    localStorage.removeItem('routine_maker_routines');
+            clearStorage() {
+                if (confirm('Clear all saved routines?')) {
+                    localStorage.removeItem('routie_saved_routines');
                     this.routines = [];
                     this.createNewRoutine();
-                    this.showToast('All data cleared.');
+                    this.showToast('Data cleared.');
                 }
             }
 
-            exportImage() {
-                this.showToast('Generating PNG image... ✦');
-                const canvasEl = document.getElementById('routine-canvas');
-                html2canvas(canvasEl, { scale: 2, backgroundColor: '#fdfbf7' }).then(canvas => {
+            exportPNG() {
+                this.showToast('Exporting PNG... ✦');
+                const card = document.getElementById('routine-preview-card');
+                html2canvas(card, { scale: 2, backgroundColor: null }).then(canvas => {
                     const link = document.createElement('a');
-                    link.download = `${this.getCurrentRoutine().title || 'routine'}.png`;
+                    link.download = `${this.getActiveRoutine().title || 'routine'}.png`;
                     link.href = canvas.toDataURL('image/png');
                     link.click();
-                    this.showToast('Routine downloaded successfully! 🎀');
+                    this.showToast('Routine exported successfully! 🎀');
                 });
             }
         }
 
-        // Initialize App on DOM Load
         let app;
         window.addEventListener('DOMContentLoaded', () => {
-            app = new RoutineApp();
+            app = new RoutieEngine();
         });
     </script>
 </body>
